@@ -1,18 +1,12 @@
-import { Component, ReactNode } from "react"
-import { Text, Button, View, Image, ScrollView, TouchableOpacity, Pressable, } from "react-native";
+import { Component } from "react"
+import { Text, View, ScrollView, } from "react-native";
 import { ThemeStyling } from "../utilty/styling/Styles";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { MaterialCommunityIcons, AntDesign, Ionicons, Feather, MaterialIcons } from '@expo/vector-icons';
+import { AntDesign, Feather } from '@expo/vector-icons';
 import Colors from "../utilty/Colors";
-import { TextInput } from "react-native-gesture-handler";
 import { CommonApiRequest } from "../utilty/api/commonApiRequest";
 import WorkorderStateInterface from "../Interfaces/States/WorkorderStateInterface";
-import OrangeCard from "../Components/OrangeCard";
-import WhiteCard from "../Components/WhiteCard";
-import TopUserNotification from "../Components/Common/TopUserNotificationCard";
-import GreenCard from "../Components/GreenCard";
 import MainLayout from "../Layout/MainLayout";
-import NoRecordFound from "../Components/Common/NoRecordFound";
+
 
 export default class Workorder extends Component<{}, WorkorderStateInterface>{
     constructor(props: any) {
@@ -51,63 +45,139 @@ export default class Workorder extends Component<{}, WorkorderStateInterface>{
     }
     render() {
         return (
-            <MainLayout isTopLogo={false} onRefresh={() => { this.refreshPage() }} loader={this.state?.loader}>
+            <MainLayout isTopLogo={true} onRefresh={() => { this.refreshPage() }} loader={this.state?.loader}>
                 <View>
                     <View style={[ThemeStyling.container, { minHeight: 'auto', marginTop: 20 }]}>
-                        {/* Filter Area */}
-                        <View style={[ThemeStyling.twoColumnLayout, { marginBottom: 30 }]}>
-                            <View style={{ width: '75%' }}>
-                                <View style={ThemeStyling.twoColumnLayout}>
-                                    <View style={ThemeStyling.col10}>
-                                        <TextInput style={ThemeStyling.searchBar} value={this.state?.serachText} placeholder="Search here..." onChangeText={(value) => { this.setState({ serachText: value }) }} />
-                                    </View>
-                                    <View style={ThemeStyling.col2}>
-                                        <Pressable onPress={() => { this.serachingData() }}>
-                                            <MaterialIcons name="search" size={24} color="black" />
-                                        </Pressable>
-                                    </View>
-                                </View>
-                            </View>
-                            <View style={{ width: '25%' }}>
-                                <View style={[ThemeStyling.bgGray, ThemeStyling.twoColumnLayout, { justifyContent: "space-between", paddingVertical: 5, paddingHorizontal: 8, borderRadius: 5 }]}>
-                                    <Text>Filter</Text>
-                                    <AntDesign name="filter" size={24} color="black" />
-                                </View>
-                            </View>
-                        </View>
-                        {/* Filter Area End */}
+                        {/* Task Summary */}
                         <View>
-                            <Text style={ThemeStyling.heading3}>Work Orders</Text>
+                            <Text style={ThemeStyling.heading3}>Task Summary</Text>
                         </View>
-                        {/* Card Orange */}
-                        {this.state?.objWorkorder?.length > 0 && this.state?.objWorkorder?.map((item: any, index: number) => {
-                            if (item?.status === 4) {
-                                return (
-                                    <Pressable onPress={() => { this.retirectToDetail(item) }} key={index}>
-                                        <GreenCard item={item}></GreenCard>
-                                    </Pressable>
-                                );
-                            } else if (item?.status === 3) {
-                                return (
-                                    <Pressable onPress={() => { this.retirectToDetail(item) }} key={index}>
-                                        <OrangeCard item={item}></OrangeCard>
-                                    </Pressable>
-                                );
-                            } else {
-                                return (
-                                    <Pressable onPress={() => { this.retirectToDetail(item) }} key={index}>
-                                        <WhiteCard item={item}></WhiteCard>
-                                    </Pressable>
-                                );
-                            }
-                        })
-                        }
-
+                        <View style={{ flexDirection: 'row' }}>
+                            <ScrollView
+                                horizontal={true}
+                                showsHorizontalScrollIndicator={false}>
+                                <View style={[ThemeStyling.cardGroup, { height: 130 }]}>
+                                    <View style={[ThemeStyling.cardStyle, ThemeStyling.card, { backgroundColor: Colors.primary_color }]}>
+                                        <Text style={[ThemeStyling.text1, { fontWeight: '600', fontFamily: 'Poppins_600SemiBold', color: Colors.white }]}>20</Text>
+                                        <Text style={[ThemeStyling.text1, { fontWeight: '600', fontFamily: 'Poppins_600SemiBold', color: Colors.white }]}>Wed</Text>
+                                    </View>
+                                    <View style={[ThemeStyling.cardStyle, ThemeStyling.card]}>
+                                        <Text style={[ThemeStyling.text1, { fontWeight: '600', fontFamily: 'Poppins_600SemiBold', }]}>21</Text>
+                                        <Text style={[ThemeStyling.text1, { fontWeight: '600', fontFamily: 'Poppins_600SemiBold', }]}>Thu</Text>
+                                    </View>
+                                    <View style={[ThemeStyling.cardStyle, ThemeStyling.card]}>
+                                        <Text style={[ThemeStyling.text1, { fontWeight: '600', fontFamily: 'Poppins_600SemiBold', }]}>22</Text>
+                                        <Text style={[ThemeStyling.text1, { fontWeight: '600', fontFamily: 'Poppins_600SemiBold', }]}>Fri</Text>
+                                    </View>
+                                    <View style={[ThemeStyling.cardStyle, ThemeStyling.card]}>
+                                        <Text style={[ThemeStyling.text1, { fontWeight: '600', fontFamily: 'Poppins_600SemiBold', }]}>23</Text>
+                                        <Text style={[ThemeStyling.text1, { fontWeight: '600', fontFamily: 'Poppins_600SemiBold', }]}>Sat</Text>
+                                    </View>
+                                    <View style={[ThemeStyling.cardStyle, ThemeStyling.card]}>
+                                        <Text style={[ThemeStyling.text1, { fontWeight: '600', fontFamily: 'Poppins_600SemiBold', }]}>24</Text>
+                                        <Text style={[ThemeStyling.text1, { fontWeight: '600', fontFamily: 'Poppins_600SemiBold', }]}>Sun</Text>
+                                    </View>
+                                    <View style={[ThemeStyling.cardStyle, ThemeStyling.card]}>
+                                        <Text style={[ThemeStyling.text1, { fontWeight: '600', fontFamily: 'Poppins_600SemiBold', }]}>25</Text>
+                                        <Text style={[ThemeStyling.text1, { fontWeight: '600', fontFamily: 'Poppins_600SemiBold', }]}>Mon</Text>
+                                    </View>
+                                </View>
+                            </ScrollView>
+                        </View>
+                        <View style={ThemeStyling.card}>
+                            <View style={ThemeStyling.cardBody}>
+                                <View style={ThemeStyling.listItem}>
+                                    <View>
+                                        <Text style={ThemeStyling.listIcon}>
+                                            <AntDesign name="shoppingcart" size={18} />
+                                        </Text>
+                                    </View>
+                                    <View>
+                                        <Text style={ThemeStyling.listText}>
+                                            Lorem Ipsum is simply dummy text
+                                        </Text>
+                                        <View style={{ display: 'flex', flexDirection: "row", alignItems: "center" }}>
+                                            <View>
+                                                <Text style={[ThemeStyling.text4, { color: Colors.secondry_color, textAlign: "left" }]}>Due date 20 , Sep 2023</Text>
+                                            </View>
+                                            <View>
+                                                <View style={[ThemeStyling.badge, ThemeStyling.bgGray, { marginLeft: 5 }]}>
+                                                    <Text style={[ThemeStyling.text6, { marginBottom: 0, color: Colors.primary_color }]}>In Progress</Text>
+                                                </View>
+                                            </View>
+                                        </View>
+                                    </View>
+                                </View>
+                                <View style={ThemeStyling.listItem}>
+                                    <View>
+                                        <Text style={[ThemeStyling.listIcon, { backgroundColor: Colors.success_color }]}>
+                                            <Feather name="globe" size={18} />
+                                        </Text>
+                                    </View>
+                                    <View>
+                                        <Text style={ThemeStyling.listText}>
+                                            Many desktop publishing packages
+                                        </Text>
+                                        <View style={{ display: 'flex', flexDirection: "row", alignItems: "center" }}>
+                                            <View>
+                                                <Text style={[ThemeStyling.text4, { color: Colors.secondry_color, textAlign: "left" }]}>Due date 25 , Nov 2023</Text>
+                                            </View>
+                                            <View>
+                                                <View style={[ThemeStyling.badge, ThemeStyling.bglightSuccess, { marginLeft: 5 }]}>
+                                                    <Text style={[ThemeStyling.text6, { marginBottom: 0, color: Colors.success_color }]}>Completed</Text>
+                                                </View>
+                                            </View>
+                                        </View>
+                                    </View>
+                                </View>
+                                <View style={ThemeStyling.listItem}>
+                                    <View>
+                                        <Text style={[ThemeStyling.listIcon, { backgroundColor: Colors.dark_color }]}>
+                                            <Feather name="shopping-bag" size={18} />
+                                        </Text>
+                                    </View>
+                                    <View>
+                                        <Text style={ThemeStyling.listText}>
+                                            There are many variations of passages
+                                        </Text>
+                                        <View style={{ display: 'flex', flexDirection: "row", alignItems: "center" }}>
+                                            <View>
+                                                <Text style={[ThemeStyling.text4, { color: Colors.secondry_color, textAlign: "left" }]}>Due date 25 , Nov 2023</Text>
+                                            </View>
+                                            <View>
+                                                <View style={[ThemeStyling.badge, ThemeStyling.bglightInfo, { marginLeft: 5 }]}>
+                                                    <Text style={[ThemeStyling.text6, { marginBottom: 0, color: Colors.dark_color }]}>Working</Text>
+                                                </View>
+                                            </View>
+                                        </View>
+                                    </View>
+                                </View>
+                                <View style={ThemeStyling.listItem}>
+                                    <View>
+                                        <Text style={[ThemeStyling.listIcon, { backgroundColor: Colors.errorColor }]}>
+                                            <AntDesign name="tagso" size={18} />
+                                        </Text>
+                                    </View>
+                                    <View>
+                                        <Text style={ThemeStyling.listText}>
+                                            All the Lorem Ipsum generators on the Internet
+                                        </Text>
+                                        <View style={{ display: 'flex', flexDirection: "row", alignItems: "center" }}>
+                                            <View>
+                                                <Text style={[ThemeStyling.text4, { color: Colors.secondry_color, textAlign: "left" }]}>Due date 25 , Nov 2023</Text>
+                                            </View>
+                                            <View>
+                                                <View style={[ThemeStyling.badge, ThemeStyling.bgDanger, { marginLeft: 5 }]}>
+                                                    <Text style={[ThemeStyling.text6, { marginBottom: 0, color: Colors.errorColor }]}>Pending</Text>
+                                                </View>
+                                            </View>
+                                        </View>
+                                    </View>
+                                </View>
+                            </View>
+                        </View>
                     </View>
                 </View>
-                {!this.state?.objWorkorder &&
-                    <NoRecordFound data={{ head: 'No data found!', msg: 'No workorder assigned you yet!' }}></NoRecordFound>
-                }
             </MainLayout>
         );
     }

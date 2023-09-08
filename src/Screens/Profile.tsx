@@ -36,7 +36,7 @@ export default class Profile extends Component<ScreenInterfcae, ProfileScreenInt
         this.setState({ phone: (user?.phone) ? user?.phone : user?.phone_no });
         this.setState({ email: user?.email });
         this.setState({ user: user });
-        
+
         CommonApiRequest.getAnyUserDetail(user?.id).then((response: any) => {
             if (response?.status == 200) {
                 const user = response?.results;
@@ -113,7 +113,7 @@ export default class Profile extends Component<ScreenInterfcae, ProfileScreenInt
         const userProfileData: any = {
             fname: this.state.fname,
             lname: this.state.lname,
-            photo: "image/png;base64,"+this.state.base64Data,
+            photo: "image/png;base64," + this.state.base64Data,
             phone: this.state.phone,
             is_photo: this.state.is_photo
         }
@@ -133,15 +133,15 @@ export default class Profile extends Component<ScreenInterfcae, ProfileScreenInt
     changeText(name: any, value: any) {
         this.setState({ [name]: value });
     }
-    async updateUserStorage(data:any){
-        let userData:any = await CommonHelper.getUserData();
-        userData.lname=data?.lname;
-        userData.fname=data?.fname;
-        userData.phone=data?.phone;
-        if(data.photo){
-            userData.photo=data?.photo;
+    async updateUserStorage(data: any) {
+        let userData: any = await CommonHelper.getUserData();
+        userData.lname = data?.lname;
+        userData.fname = data?.fname;
+        userData.phone = data?.phone;
+        if (data.photo) {
+            userData.photo = data?.photo;
         }
-        await CommonHelper.saveStorageData(ConstantsVar.USER_STORAGE_KEY,JSON.stringify(userData));
+        await CommonHelper.saveStorageData(ConstantsVar.USER_STORAGE_KEY, JSON.stringify(userData));
     }
     refreshData() {
         CommonApiRequest.getAnyUserDetail(this.state.user?.id).then((response: any) => {
@@ -162,54 +162,50 @@ export default class Profile extends Component<ScreenInterfcae, ProfileScreenInt
             <MainLayout isTopLogo={false} loader={this.state.loader} onRefresh={() => { this.refreshData() }}>
                 <View>
                     <View style={[ThemeStyling.container, { minHeight: 'auto' }]}>
-                        <View style={{ justifyContent: "space-between", flexDirection: "row", marginBottom: 10 }}>
 
-
-                        </View>
                         <View style={[ThemeStyling.profileContainer, { justifyContent: "flex-start", marginBottom: 20 }]}>
-                            <View style={{ marginRight: 10 }}>
+                            <View style={{ position: "relative" }}>
                                 <Image style={[ThemeStyling.profileImage, { width: 100, height: 100 }]} source={(this.state.photo) ? { uri: this.state.photo } : require('../../assets/staticimages/avatar.png')} />
+                                <View>
+                                    <TouchableOpacity style={[ThemeStyling.btnInfo, {
+                                        width: 30, height: 30, paddingHorizontal: 0, margin: 0, position: "absolute", right: 0,
+                                        top: -35
+                                    }]}>
+                                        <Text style={[ThemeStyling.btnText, { margin: 0 }]}>
+                                            <Feather name="upload" style={[ThemeStyling.icon2, { fontSize: 12, lineHeight: 18, marginBottom: 0 }]} />
+                                        </Text>
+                                    </TouchableOpacity>
+                                </View>
                             </View>
                             <View>
-                                <Text style={[ThemeStyling.heading4, { marginBottom: 0, paddingBottom: 0 }]}>Update your picture</Text>
-                                <Text style={[ThemeStyling.text2, { marginBottom: 5, color: Colors.gray_color }]}>Upload a photo max 2 MB</Text>
-                                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                    <View style={{ marginRight: 10 }}>
-                                        <TouchableOpacity style={ThemeStyling.btnInfo} onPress={() => { this.pickImage() }}>
-                                            <Text style={[ThemeStyling.btnText, { fontSize: Colors.FontSize.h6 }]}><MaterialCommunityIcons style={[ThemeStyling.icon2, { fontSize: Colors.FontSize.h5 }]} name="upload" /> Upload</Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                    <View>
-                                        <TouchableOpacity style={ThemeStyling.btnLink} onPress={() => { this.removePicture() }}>
-                                            <Text style={[ThemeStyling.text4, { color: Colors.errorColor }]}>Remove picture</Text>
-                                        </TouchableOpacity>
-                                    </View>
+                                <View style={{ display: "flex", flexDirection: "row", marginLeft: 15 }}>
+                                    <Text style={[ThemeStyling.heading4, { marginBottom: 0, paddingBottom: 0 }]}>Ester Howard </Text>
+                                    <TouchableOpacity style={{ marginLeft: 5 }}><AntDesign name="edit" style={[ThemeStyling.icon2, { fontSize: Colors.FontSize.h6, lineHeight: 23, color: Colors.darkBlue, }]} /></TouchableOpacity>
                                 </View>
+                                <Text style={[ThemeStyling.text5, {
+                                    color: Colors.success_color
+                                }]}>Upload max 2 MB</Text>
                             </View>
                         </View>
                         <View style={ThemeStyling.formgroup2}>
                             <Text style={[ThemeStyling.heading5, { color: Colors.dark_color }]}>First Name</Text>
-                            <TextInput onChangeText={(evnt) => { this.changeText('fname', evnt) }} style={[ThemeStyling.formcontrol, { paddingLeft: 25, paddingVertical: 15 }]} secureTextEntry={false} placeholder="Arian" value={this.state?.fname}></TextInput>
-
+                            <TextInput onChangeText={(evnt) => { this.changeText('fname', evnt) }} style={ThemeStyling.formcontrol} secureTextEntry={false} placeholder="Arian" value={this.state?.fname}></TextInput>
                         </View>
                         <View style={ThemeStyling.formgroup2}>
                             <Text style={[ThemeStyling.heading5, { color: Colors.dark_color }]}>Last Name</Text>
-                            <TextInput onChangeText={(evnt) => { this.changeText('lname', evnt) }} style={[ThemeStyling.formcontrol, { paddingLeft: 25, paddingVertical: 15 }]} secureTextEntry={false} placeholder="Zesan" value={this.state?.lname}></TextInput>
-
+                            <TextInput onChangeText={(evnt) => { this.changeText('lname', evnt) }} style={ThemeStyling.formcontrol} secureTextEntry={false} placeholder="Zesan" value={this.state?.lname}></TextInput>
                         </View>
                         <View style={ThemeStyling.formgroup2}>
                             <Text style={[ThemeStyling.heading5, { color: Colors.dark_color }]}>Phone Number</Text>
-                            <TextInput keyboardType="number-pad" maxLength={13} onChangeText={(evnt) => { this.changeText('phone', evnt) }} style={[ThemeStyling.formcontrol, { paddingLeft: 25, paddingVertical: 15 }]} secureTextEntry={false} placeholder="+91 8765 4321 98" value={this.state?.phone}></TextInput>
-
+                            <TextInput keyboardType="number-pad" maxLength={13} onChangeText={(evnt) => { this.changeText('phone', evnt) }} secureTextEntry={false} placeholder="+91 8765 4321 98" value={this.state?.phone}></TextInput>
                         </View>
                         <View style={ThemeStyling.formgroup2}>
                             <Text style={[ThemeStyling.heading5, { color: Colors.dark_color }]}>E-mail</Text>
-                            <TextInput editable={false} style={[ThemeStyling.formcontrol, { paddingLeft: 25, backgroundColor: Colors.gray400, paddingVertical: 15 }]} secureTextEntry={false} placeholder="arian.zesan@gmail.com" value={this.state?.email}></TextInput>
-
+                            <TextInput editable={false} style={ThemeStyling.formcontrol} secureTextEntry={false} placeholder="arian.zesan@gmail.com" value={this.state?.email}></TextInput>
                         </View>
                         <View style={{ marginBottom: 20 }}>
-                            <TouchableOpacity onPress={() => { this.updateUserProfile() }} style={[ThemeStyling.btnPrimary, { paddingHorizontal: 20, justifyContent: 'center', backgroundColor: Colors.success_color }]}>
-                                <Text style={[ThemeStyling.btnText, { fontSize: Colors.FontSize.f16 }]}>Update</Text>
+                            <TouchableOpacity onPress={() => { this.updateUserProfile() }} style={[ThemeStyling.btnPrimary, { justifyContent: 'center', backgroundColor: Colors.success_color }]}>
+                                <Text style={[ThemeStyling.btnText, { fontSize: Colors.FontSize.f16, color:Colors.white }]}>Update</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

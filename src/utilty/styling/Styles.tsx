@@ -21,10 +21,37 @@ export const ThemeStyling = StyleSheet.create({
     color: Colors.success_color
   },
   bgPrimary: {
-    backgroundColor: Colors.primary_color
+    backgroundColor: Colors.primary_color,
+  },
+  bgSuccess: {
+    backgroundColor: Colors.success_color,
+  },
+  bgWarning: {
+    backgroundColor: 'rgba(255, 190, 12, 1)',
+  },
+  bgInfo: {
+    backgroundColor: Colors.gray_color,
+  },
+  bgDanger: {
+    backgroundColor: 'rgba(205, 50, 84, .2)',
   },
   bgGray: {
     backgroundColor: Colors.gray200
+  },
+  bglightPrimary: {
+    backgroundColor: 'rgba(62, 86, 246 , .3)',
+  },
+  bglightDanger: {
+    backgroundColor: 'rgba(205, 50, 84, .2)',
+  },
+  bglightSuccess: {
+    backgroundColor: 'rgba(75, 174, 79, .2)',
+  },
+  bglightInfo: {
+    backgroundColor: Colors.grayLight,
+  },
+  bglightWarning: {
+    backgroundColor: 'rgba(255, 190, 12, .2)',
   },
   imagecontainer: {
     height: 80,
@@ -47,15 +74,15 @@ export const ThemeStyling = StyleSheet.create({
     fontSize: Colors.FontSize.h2,
     fontFamily: 'Poppins_700Bold',
     fontWeight: '700',
-    color: Colors.darkBlue,
+    // color: Colors.darkBlue,
     textTransform: "capitalize",
-    marginBottom: 15,
+    marginBottom: 5,
   },
   heading3: {
     fontSize: Colors.FontSize.h3,
     fontFamily: 'Poppins_600SemiBold',
     fontWeight: '600',
-    color: Colors.darkBlue,
+    color: Colors.dark_color,
     marginBottom: 15,
   },
   heading4: {
@@ -77,7 +104,6 @@ export const ThemeStyling = StyleSheet.create({
     fontFamily: 'Poppins_400Regular',
     fontWeight: '400',
     color: Colors.secondry_color,
-    marginBottom: 30,
   },
   formgroup: {
     flex: 1,
@@ -93,11 +119,12 @@ export const ThemeStyling = StyleSheet.create({
   formcontrol: {
     flex: 1,
     borderRadius: 100,
-    borderColor: Colors.primary_color,
-    color: Colors.gray_color,
+    // borderColor: Colors.primary_color,
+    color: Colors.gray400,
     borderStyle: 'solid',
-    padding: 10,
-    paddingLeft: 60,
+    borderColor:Colors.gray400,
+    padding: 8,
+    paddingLeft: 20,
     borderWidth: 1,
   },
   inputbtn: {
@@ -116,34 +143,34 @@ export const ThemeStyling = StyleSheet.create({
     alignItems: 'center'
   },
   btnPrimary: {
-    backgroundColor: Colors.primary_color,
+    backgroundColor: Colors.orange_color,
     borderRadius: 100,
     padding: 10,
     paddingLeft: 16,
     paddingRight: 16,
     textAlign: "center",
+    width: '100%',
     height: 50,
-    minWidth: 200,
+    // minWidth: 200,
 
   },
   btnText: {
     textAlign: "center",
-    fontSize: Colors.FontSize.f20,
-    fontFamily: 'Poppins_400Regular',
-    fontWeight: '400',
+    fontSize: Colors.FontSize.f18,
+    fontFamily: 'Poppins_600SemiBold',
+    fontWeight: '600',
     textTransform: 'capitalize',
-    color: Colors.white,
+    color: Colors.dark_color,
   },
   btnLink: {
     alignItems: 'center',
   },
   btnText2: {
     textAlign: "center",
-    fontSize: Colors.FontSize.f18,
-    fontFamily: 'Poppins_400Regular',
-    fontWeight: '400',
+    fontSize: Colors.FontSize.p,
     textTransform: 'capitalize',
-    color: Colors.white,
+    color: Colors.primary_color,
+    marginLeft: 5
   },
   fixedbottom: {
     paddingTop: 35,
@@ -264,36 +291,33 @@ export const ThemeStyling = StyleSheet.create({
     color: Colors.dark_color
   },
   headingIcon: {
-    flexDirection: "row",
     justifyContent: "flex-start",
-    alignItems: "center",
-    marginBottom: 15
+    marginBottom: 15,
   },
   listItem: {
     marginBottom: 10,
-    justifyContent: "space-between",
-    alignItems: "center",
+    alignItems: "flex-start",
     flexDirection: "row"
   },
-  listNumber: {
-    width: 21,
-    height: 21,
-    borderRadius: 3,
+  listIcon: {
+    width: 35,
+    height: 35,
+    borderRadius: 100,
     backgroundColor: Colors.primary_color,
     alignItems: "center",
     color: Colors.white,
-    fontFamily: 'Poppins_400Regular',
-    fontWeight: '400',
-    fontSize: Colors.FontSize.f11,
-    lineHeight: 20,
+    fontSize: Colors.FontSize.f17,
+    lineHeight: 35,
     marginRight: 10,
-    textAlign: "center"
+    textAlign: "center",
+    display: 'flex',
+    justifyContent: 'center',
   },
   listText: {
-    fontSize: Colors.FontSize.f11,
+    fontSize: Colors.FontSize.h6,
     fontFamily: 'Poppins_400Regular',
     fontWeight: '400',
-    color: Colors.gray300
+    color: Colors.dark_color
   },
 
   // Work Summary
@@ -338,17 +362,33 @@ export const ThemeStyling = StyleSheet.create({
     color: Colors.dark_color,
     textAlign: "center"
   },
+  text5: {
+    fontSize: Colors.FontSize.f10,
+    fontFamily: 'Poppins_400Regular',
+    fontWeight: '400',
+    color: Colors.dark_color,
+    textAlign: "center"
+  },
+  text6: {
+    fontSize: Colors.FontSize.f8,
+    fontFamily: 'Poppins_500Medium',
+    fontWeight: '500',
+    color: Colors.dark_color,
+    textAlign: "center"
+  },
 
   //Team
   profileContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center"
+    display:"flex",
+    justifyContent: "center",
+    alignItems:"center"
   },
   profileImage: {
     width: 85,
     height: 85,
-    borderRadius: 50
+    borderRadius: 50,
+    borderWidth:1,
+    borderColor: Colors.gray400,
   },
   searchBar: {
     borderBottomWidth: 1,
@@ -368,11 +408,11 @@ export const ThemeStyling = StyleSheet.create({
     zIndex: 9999
   },
   footer: {
-    backgroundColor: Colors.orange_color,
-    paddingTop: 50,
-    paddingBottom: 15,
-    borderTopLeftRadius: 5000,
-    borderTopRightRadius: 5000,
+    // backgroundColor: Colors.success_color,
+    paddingTop: 10,
+    paddingBottom: 10,
+    // borderTopLeftRadius: 5000,
+    // borderTopRightRadius: 5000,
     marginTop: 'auto',
     marginBottom: 0,
   },
@@ -452,14 +492,61 @@ export const ThemeStyling = StyleSheet.create({
     paddingLeft: 16,
     paddingRight: 16,
   },
+  btnOutlinePrimary: {
+    backgroundColor: Colors.dangerLight,
+    borderRadius: 100,
+    padding: 10,
+    paddingLeft: 16,
+    paddingRight: 16,
+  },
   gallery: {
     flexDirection: "row",
     justifyContent: "space-around",
     flexWrap: "wrap"
   },
   galleryItem: {
-    width:'40%',
-    marginTop:20,
-    paddingHorizontal:20
+    width: '40%',
+    marginTop: 20,
+    paddingHorizontal: 20
+  },
+
+  /*
+  * Dashboard
+  */
+  scrollX: {
+    overflowX: 'auto',
+    scrollY: 'hidden',
+    border: '1px solid red',
+    width: 500,
+  },
+  cardGroup: {
+    display: 'flex',
+    justifyContent: "flex-start",
+    alignItems: 'center',
+    flexDirection: 'row'
+  },
+  cardStyle: {
+    width: 70,
+    height: 90,
+    borderRadius: 25,
+    display: 'flex',
+    justifyContent: "center",
+    alignItems: 'center',
+    marginRight: 15
+  },
+  badge: {
+    paddingVertical:3,
+    paddingHorizontal:10,
+    backgroundColor: Colors.grayLight,
+    borderRadius: 6,
+    fontSize: Colors.FontSize.f12,
+    padding: 0
+  },
+  circles: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  progress: {
+    margin: 10,
   },
 });

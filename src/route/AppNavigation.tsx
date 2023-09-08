@@ -42,7 +42,7 @@ export default class AppContainer extends Component<{}> {
   }
   Logout = () => {
     alert('Hi');
-    this.props?.navigation.navigate("Home");
+    this.props?.navigation.navigate("RegisterScreen");
     return ("");
   }
   WorkOrderScreen() {
@@ -103,9 +103,9 @@ export default class AppContainer extends Component<{}> {
             name="Profile"
             component={Team}
             options={{
-              tabBarLabel: "Team",
+              tabBarLabel: "Add Task",
               tabBarIcon: ({ focused, color }) => (
-                <MaterialCommunityIcons name="handshake-outline" size={24} color={(focused) ? Colors.light_crystal_blue : Colors.white} />
+                <AntDesign name="plus" size={24} color={(focused) ? Colors.light_crystal_blue : Colors.white} />
               ),
             }}
           />

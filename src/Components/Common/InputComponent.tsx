@@ -79,7 +79,7 @@ const Styles = StyleSheet.create({
         borderRadius: 3,
         borderStyle: 'solid',
         borderWidth: 0.5,
-        height: 70,
+        height: 40,
         marginVertical: 4
     },
     textInput: {

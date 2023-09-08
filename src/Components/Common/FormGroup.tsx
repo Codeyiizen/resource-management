@@ -37,13 +37,13 @@ const Styles = StyleSheet.create({
         borderRadius: 3,
         borderStyle: 'solid',
         borderWidth: 0.5,
-        height: 40,
+        height: 35,
         marginVertical: 4
     },
     textInput: {
         fontSize: 15,
-        paddingStart:10,
-        paddingEnd:10,
+        paddingStart:5,
+        paddingEnd:5,
         backgroundColor:'#252525',
         borderRadius:10,
     },

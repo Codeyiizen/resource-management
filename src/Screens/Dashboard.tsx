@@ -1,19 +1,13 @@
 import { Component } from "react";
-import { View, Image, Text, TouchableOpacity, ScrollView, Pressable } from "react-native";
+import { View, Image, Text, TouchableOpacity } from "react-native";
 import { ThemeStyling } from "../utilty/styling/Styles";
-import { MaterialCommunityIcons, AntDesign, Ionicons, Feather } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient';
+import { FontAwesome, FontAwesome5, } from '@expo/vector-icons';
 import Colors from "../utilty/Colors";
 import MainLayout from "../Layout/MainLayout";
 import { CommonApiRequest } from "../utilty/api/commonApiRequest";
 import DashboardInterface from "../Interfaces/States/DashboardInterface";
-import { CommonHelper } from "../utilty/CommonHelper";
-import TopUserNotification from "../Components/Common/TopUserNotificationCard";
-import { ConstantsVar } from "../utilty/ConstantsVar";
-import OrangeCard from "../Components/OrangeCard";
-import WhiteCard from "../Components/WhiteCard";
-import GreenCard from "../Components/GreenCard";
 import ScreenInterfcae from "../Interfaces/Common/ScreensInterface";
+import ProgressCircle from 'react-native-progress-circle';
 
 export default class Dashboard extends Component<ScreenInterfcae, DashboardInterface>{
     constructor(props: any) {
@@ -46,92 +40,189 @@ export default class Dashboard extends Component<ScreenInterfcae, DashboardInter
     }
     render() {
         return (
-            <MainLayout isTopLogo={true} onRefresh={() => { this.refreshPage() }} loader={this.state?.loader}>
-                <View style={{ paddingBottom: 40 }}>
-                    <View style={ThemeStyling.container}>
-                        <TopUserNotification />
-                        {/* Work Summary */}
+            <MainLayout onRefresh={() => { this.refreshPage() }} loader={this.state?.loader}>
+                <View style={[ThemeStyling.bgPrimary, { borderBottomLeftRadius: 10, borderBottomRightRadius: 10 }]}>
+                    <View style={[ThemeStyling.container, { alignItems: "flex-start", minHeight: 1, width: '100%', minWidth: '100%' }]}>
                         <View>
-                            <Text style={ThemeStyling.heading3}>Work Summary</Text>
+                            <Text style={[ThemeStyling.heading2, { color: Colors.white }]}>Hello, John Steward</Text>
                         </View>
-                        {this.state?.dataObj &&
-                            <View style={ThemeStyling.workSummary}>
-                                <View style={[ThemeStyling.counter, { width: '30%', marginRight: 10 }]}>
-                                    <LinearGradient
-                                        // Background Linear Gradient
-                                        colors={['#a9d775', '#c2e67d']}
-                                        start={{ x: 0, y: 1 }}
-                                        end={{ x: 1, y: 0 }} style={{ width: '100%', height: '100%', borderRadius: 6, justifyContent: 'center' }}>
-                                        <View style={{ height: 55, marginBottom: 10 }}>
-                                            <Text style={[ThemeStyling.totalCount]}>{this.state?.dataObj?.total}</Text>
-                                            <Text style={ThemeStyling.counterTxt}>Total</Text>
-                                        </View>
-                                    </LinearGradient>
+                        <View style={{ marginBottom: 15 }}>
+                            <Text style={[ThemeStyling.text1, { color: Colors.primary_light_color }]}>Monday, 17 Sep 2023</Text>
+                        </View>
+                        <View style={{ display: "flex", flexWrap: 'wrap', flexDirection: "row", justifyContent: "center", marginBottom: 30 }}>
+                            <View style={{ width: '30%' }}>
+                                <Text style={[ThemeStyling.heading1, { textAlign: "center", color: Colors.primary_light_color, fontSize: Colors.FontSize.f32, marginBottom: 5 }]}>28</Text>
+                                <Text style={[ThemeStyling.text3, { textAlign: "center" }]}>Tasks Pending</Text>
+                            </View>
+                            <View style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                <Text style={{ borderRightWidth: 1, borderRightColor: Colors.dark_color, paddingVertical: 3 }}></Text>
+                            </View>
+                            <View style={{ width: '30%' }}>
+                                <Text style={[ThemeStyling.heading1, { textAlign: "center", color: Colors.primary_light_color, fontSize: Colors.FontSize.f32, marginBottom: 5 }]}>34</Text>
+                                <Text style={[ThemeStyling.text3, { textAlign: "center" }]}>Tasks In Progress</Text>
+                            </View>
+                            <View style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                <Text style={{ borderRightWidth: 1, borderRightColor: Colors.dark_color, paddingVertical: 3 }}></Text>
+                            </View>
+                            <View style={{ width: '30%' }}>
+                                <Text style={[ThemeStyling.heading1, { textAlign: "center", color: Colors.primary_light_color, fontSize: Colors.FontSize.f32, marginBottom: 5 }]}>685</Text>
+                                <Text style={[ThemeStyling.text3, { textAlign: "center" }]}>Tasks Completed</Text>
+                            </View>
+                        </View>
+                    </View>
+                </View>
+                <View style={[ThemeStyling.container, { alignItems: "flex-start", minHeight: 1, paddingBottom: 0 }]}>
+                    <View style={{ display: "flex", flexWrap: 'wrap', flexDirection: "row", justifyContent: "center", marginTop: -40 }}>
+                        <View style={[ThemeStyling.card, { width: '45%', marginRight: 10 }]}>
+                            <View style={ThemeStyling.cardBody}>
+                                <View style={{ marginBottom: 10 }}>
+                                    <Text style={[ThemeStyling.listIcon, ThemeStyling.bglightPrimary, { borderRadius: 8 }]}>
+                                        <FontAwesome name="tasks" size={16} style={{ color: Colors.primary_color }} />
+                                    </Text>
                                 </View>
-                                <View style={[ThemeStyling.counter, { width: '28%', marginLeft: 10, marginRight: 10, }]}>
-                                    <LinearGradient
-                                        // Background Linear Gradient
-                                        colors={['#4ccdba', '#61e0cd']}
-                                        start={{ x: 0, y: 1 }}
-                                        end={{ x: 1, y: 0 }} style={{ width: '100%', height: '100%', borderRadius: 6, justifyContent: 'center' }}>
-                                        <View style={{ height: 55, marginBottom: 10 }}>
-                                            <Text style={ThemeStyling.totalCount}>{this.state?.dataObj?.completed}</Text>
-                                            <Text style={ThemeStyling.counterTxt}>Completed</Text>
-                                        </View>
-                                    </LinearGradient>
-                                </View>
-                                <View style={[ThemeStyling.counter, { width: '30%', marginLeft: 10 }]}>
-                                    <LinearGradient
-                                        // Background Linear Gradient
-                                        colors={['#f1606a', '#fa6e77']}
-                                        start={{ x: 0, y: 1 }}
-                                        end={{ x: 1, y: 0 }} style={{ width: '100%', height: '100%', borderRadius: 6, justifyContent: 'center' }}>
-                                        <View style={{ height: 55, marginBottom: 10 }}>
-                                            <Text style={ThemeStyling.totalCount}>{this.state?.dataObj?.pending}</Text>
-                                            <Text style={ThemeStyling.counterTxt}>Pending</Text>
-                                        </View>
-                                    </LinearGradient>
+                                <View>
+                                    <Text style={[ThemeStyling.heading5, { fontWeight: '600', fontFamily: 'Poppins_600SemiBold', color: Colors.dark_color }]}>Total Task</Text>
+                                    <Text style={[ThemeStyling.text5, { fontWeight: '600', fontFamily: 'Poppins_600SemiBold', textAlign: "left" }]}>34 new task added</Text>
                                 </View>
                             </View>
-                        }
-                        {this.state?.dataObj?.inprocess_workorder_list?.id &&
-                            <>
-                                <View style={{ marginTop: 25 }}>
-                                    <Text style={ThemeStyling.heading3}>In Proccess Work Order</Text>
-                                </View>
-
-                                <Pressable onPress={() => { this.retirectToDetail(this.state?.dataObj?.inprocess_workorder_list) }}>
-                                    <OrangeCard item={this.state?.dataObj?.inprocess_workorder_list}></OrangeCard>
-                                </Pressable>
-                            </>
-                        }
-                        {/* Work Summary */}
-                        <View style={{ marginTop: 25 }}>
-                            <Text style={ThemeStyling.heading3}>Latest Work Orders</Text>
                         </View>
-                        {this.state?.dataObj?.upcomming_workorder_list?.length > 0 && this.state?.dataObj?.upcomming_workorder_list?.map((item: any, index: number) => {
-                            if (item?.status === 4) {
-                                return (
-                                    <Pressable onPress={() => { this.retirectToDetail(item) }} key={index}>
-                                        <GreenCard item={item} key={index}></GreenCard>
-                                    </Pressable>
-                                );
-                            } else if (item?.status === 3) {
-                                return (
-                                    <Pressable onPress={() => { this.retirectToDetail(item) }} key={index}>
-                                        <OrangeCard item={item} key={index}></OrangeCard>
-                                    </Pressable>
-                                );
-                            } else {
-                                return (
-                                    <Pressable onPress={() => { this.retirectToDetail(item) }} key={index}>
-                                        <WhiteCard item={item} key={index}></WhiteCard>
-                                    </Pressable>
-                                );
-                            }
-                        })
-                        }
-                    </View >
+                        <View style={[ThemeStyling.card, { width: '45%', marginLeft: 10 }]}>
+                            <View style={ThemeStyling.cardBody}>
+                                <View style={{ marginBottom: 10 }}>
+                                    <Text style={[ThemeStyling.listIcon, ThemeStyling.bglightSuccess, { borderRadius: 8 }]}>
+                                        <FontAwesome5 name="calendar-check" size={18} style={{ color: Colors.success_color }} />
+                                    </Text>
+                                </View>
+                                <Text style={[ThemeStyling.heading5, { fontWeight: '600', fontFamily: 'Poppins_600SemiBold', color: Colors.dark_color }]}>Completed</Text>
+                                <Text style={[ThemeStyling.text5, { fontWeight: '600', fontFamily: 'Poppins_600SemiBold', textAlign: "left" }]}>You have 400 ticket</Text>
+                            </View>
+                        </View>
+                        <View style={[ThemeStyling.card, { width: '45%', marginRight: 10 }]}>
+                            <View style={ThemeStyling.cardBody}>
+                                <View style={{ marginBottom: 10 }}>
+                                    <Text style={[ThemeStyling.listIcon, ThemeStyling.bglightDanger, { borderRadius: 8 }]}>
+                                        <FontAwesome name="tasks" size={16} style={{ color: Colors.errorColor }} />
+                                    </Text>
+                                </View>
+                                <View>
+                                    <Text style={[ThemeStyling.heading5, { fontWeight: '600', fontFamily: 'Poppins_600SemiBold', color: Colors.dark_color }]}>Pending</Text>
+                                    <Text style={[ThemeStyling.text5, { fontWeight: '600', fontFamily: 'Poppins_600SemiBold', textAlign: "left" }]}>2 task remaining today</Text>
+                                </View>
+                            </View>
+                        </View>
+                        <View style={[ThemeStyling.card, { width: '45%', marginLeft: 10 }]}>
+                            <View style={ThemeStyling.cardBody}>
+                                <View style={{ marginBottom: 10 }}>
+                                    <Text style={[ThemeStyling.listIcon, ThemeStyling.bglightWarning, { borderRadius: 8 }]}>
+                                        <FontAwesome name="tasks" size={16} style={{ color: Colors.orange_color }} />
+                                    </Text>
+                                </View>
+                                <View>
+                                    <Text style={[ThemeStyling.heading5, { fontWeight: '600', fontFamily: 'Poppins_600SemiBold', color: Colors.dark_color }]}>In Progress</Text>
+                                    <Text style={[ThemeStyling.text5, { fontWeight: '600', fontFamily: 'Poppins_600SemiBold', textAlign: "left" }]}>Track all your task</Text>
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+                    <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 15 }}>
+                        <View style={{ flex: 1 }}>
+                            <View style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "flex-start" }}>
+                                <Text style={[ThemeStyling.heading3, { marginBottom: 0 }]}>Ongoing Tasks</Text>
+                                <Text style={[ThemeStyling.badge, ThemeStyling.bgWarning, { marginLeft: 5, textAlign: "center", paddingHorizontal: 5 }]}>
+                                    12
+                                </Text>
+                            </View>
+                        </View>
+                        <View style={{ marginLeft: 10 }}>
+                            <Text style={[ThemeStyling.text1, { textAlign: "right", marginBottom: 0 }]}> See All</Text>
+                        </View>
+                    </View>
+                    <View style={[ThemeStyling.card, { flex: 1 }]}>
+                        <View style={[ThemeStyling.cardBody, { display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }]}>
+                            <View style={{ width: '76%' }}>
+                                <Text style={[ThemeStyling.heading5, { color: Colors.dark_color, fontFamily: 'Poppins_600SemiBold', fontWeight: '600', marginBottom: 0 }]}>The generated Lorem Ipsum</Text>
+                                <Text style={ThemeStyling.text1}>Identifying the components </Text>
+                            </View>
+                            <View style={{ width: '20%', marginLeft: 10, justifyContent: "flex-end", display: "flex", alignItems: "flex-end" }}>
+                                <ProgressCircle
+                                    percent={10}
+                                    radius={25}
+                                    borderWidth={4}
+                                    color={Colors.grayLight}
+                                    shadowColor={Colors.orange_color}
+                                    bgColor="#fff"
+                                >
+                                    <Text style={{ fontSize: 12 }}>{'80%'}</Text>
+                                </ProgressCircle>
+                            </View>
+                        </View>
+                    </View>
+                    <View style={[ThemeStyling.card]}>
+                        <View style={[ThemeStyling.cardBody, { display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }]}>
+                            <View style={{ width: '76%' }}>
+                                <Text style={[ThemeStyling.heading5, { color: Colors.dark_color, fontFamily: 'Poppins_600SemiBold', fontWeight: '600', marginBottom: 0 }]}>Get input from the report</Text>
+                                <Text style={ThemeStyling.text1}>Gather feedback form doc file</Text>
+                            </View>
+                            <View style={{ width: '20%', marginLeft: 10, justifyContent: "flex-end", display: "flex", alignItems: "flex-end" }}>
+                                <ProgressCircle
+                                    percent={.9}
+                                    radius={25}
+                                    borderWidth={4}
+                                    color={Colors.grayLight}
+                                    shadowColor={Colors.primary_color}
+                                    bgColor="#fff"
+
+                                >
+                                    <Text style={{ fontSize: 12 }}>{'96%'}</Text>
+                                </ProgressCircle>
+                            </View>
+                        </View>
+                    </View>
+                    <View style={[ThemeStyling.card, { flex: 1 }]}>
+                        <View style={[ThemeStyling.cardBody, { display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }]}>
+                            <View style={{ width: '76%' }}>
+                                <Text style={[ThemeStyling.heading5, { color: Colors.dark_color, fontFamily: 'Poppins_600SemiBold', fontWeight: '600', marginBottom: 0 }]}>Develop a component </Text>
+                                <Text style={ThemeStyling.text1}>Create a library of reusable components</Text>
+                            </View>
+                            <View style={{ width: '20%', marginLeft: 10, justifyContent: "flex-end", display: "flex", alignItems: "flex-end" }}>
+                                <ProgressCircle
+                                    percent={Math.round(100)}
+                                    radius={25}
+                                    borderWidth={4}
+                                    color={Colors.grayLight}
+                                    shadowColor={Colors.errorColor}
+                                    bgColor="#fff"
+                                >
+                                    <Text style={{ fontSize: 12 }}>{'50%'}</Text>
+                                </ProgressCircle>
+                            </View>
+                        </View>
+                    </View>
+                    <View style={[ThemeStyling.card, { flex: 1 }]}>
+                        <View style={[ThemeStyling.cardBody, { display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }]}>
+                            <View style={{ width: '76%' }}>
+                                <Text style={[ThemeStyling.heading5, { color: Colors.dark_color, fontFamily: 'Poppins_600SemiBold', fontWeight: '600', marginBottom: 0 }]}>Write clear and concise copy</Text>
+                                <Text style={[ThemeStyling.text4, { textAlign: "left", color: Colors.gray_color }]}>Easy for users to understand</Text>
+                            </View>
+                            <View style={{ width: '20%', marginLeft: 10, justifyContent: "flex-end", display: "flex", alignItems: "flex-end" }}>
+                                <ProgressCircle
+                                    percent={Math.round(30)}
+                                    radius={25}
+                                    borderWidth={4}
+                                    color={Colors.grayLight}
+                                    shadowColor={Colors.success_color}
+                                    bgColor="#fff"
+                                >
+                                    <Text style={{ fontSize: 12 }}>{'100%'}</Text>
+                                </ProgressCircle>
+                            </View>
+                        </View>
+                    </View>
+                    <View style={[ThemeStyling.btnContainer, { marginBottom: 80, width: '100%' }]}>
+                        <TouchableOpacity style={[ThemeStyling.btnPrimary, { width: '100%' }]} onPress={() => { this.loginUser() }} disabled={this.state?.isDisable}>
+                            <Text style={ThemeStyling.btnText}>Add new</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </MainLayout>
         );
