@@ -39,7 +39,7 @@ export const ThemeStyling = StyleSheet.create({
     backgroundColor: Colors.gray200
   },
   bglightPrimary: {
-    backgroundColor: 'rgba(62, 86, 246 , .3)',
+    backgroundColor: 'rgba(3, 154, 217, .3)',
   },
   bglightDanger: {
     backgroundColor: 'rgba(205, 50, 84, .2)',

@@ -1,7 +1,7 @@
 const Colors = {
     primary_color: '#039ad9',
     secondry_color: '#8B8B8B',
-    dark_color: '#474747',
+    dark_color: '#000000',
     orange_color: '#ffbe0c',
     complteted_color: '#4ccdba',
     success_color: '#4bae4f',

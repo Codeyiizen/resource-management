@@ -47,11 +47,11 @@ export default class Team extends Component<ScreenInterfcae, ScreenStateInterfca
                                 <Ionicons name="arrow-back" style={[ThemeStyling.icon2, { fontSize: Colors.FontSize.h3, lineHeight: 30, color: Colors.dark_color, }]} /></TouchableOpacity>
                             <Text style={[ThemeStyling.heading3, { marginBottom: 0, paddingBottom: 0 }]}>Adding new task</Text>
                         </View>
-                        <View style={{ display: "flex", flexDirection: "row", marginBottom: 10 }}>
+                        <View style={{ display: "flex", flexDirection: "row", alignItems:"center", marginBottom: 20 }}>
                             <Text style={[ThemeStyling.listIcon, ThemeStyling.bglightPrimary, { borderRadius: 8 }]}>
                                 <FontAwesome name="tasks" size={16} style={{ color: Colors.primary_color }} />
                             </Text>
-                            <Text style={ThemeStyling.heading4}>Task Title</Text>
+                            <Text style={[ThemeStyling.heading4, {marginBottom:0}]}>Task Title</Text>
                         </View>
 
                         <View style={ThemeStyling.twoColumnLayout}>
