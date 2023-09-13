@@ -39,7 +39,7 @@ export const ThemeStyling = StyleSheet.create({
     backgroundColor: Colors.gray200
   },
   bglightPrimary: {
-    backgroundColor: 'rgba(62, 86, 246 , .3)',
+    backgroundColor: 'rgba(3, 154, 217, .3)',
   },
   bglightDanger: {
     backgroundColor: 'rgba(205, 50, 84, .2)',
@@ -54,12 +54,11 @@ export const ThemeStyling = StyleSheet.create({
     backgroundColor: 'rgba(255, 190, 12, .2)',
   },
   imagecontainer: {
-    height: 80,
+    height: 100,
     alignItems: 'center',
   },
   image: {
     flex: 1,
-    width: 250,
     resizeMode: 'contain',
   },
   heading1: {
@@ -143,7 +142,7 @@ export const ThemeStyling = StyleSheet.create({
     alignItems: 'center'
   },
   btnPrimary: {
-    backgroundColor: Colors.orange_color,
+    backgroundColor: Colors.primary_color,
     borderRadius: 100,
     padding: 10,
     paddingLeft: 16,
@@ -160,7 +159,7 @@ export const ThemeStyling = StyleSheet.create({
     fontFamily: 'Poppins_600SemiBold',
     fontWeight: '600',
     textTransform: 'capitalize',
-    color: Colors.dark_color,
+    color: Colors.white,
   },
   btnLink: {
     alignItems: 'center',

@@ -197,14 +197,14 @@ export default class Profile extends Component<ScreenInterfcae, ProfileScreenInt
                         </View>
                         <View style={ThemeStyling.formgroup2}>
                             <Text style={[ThemeStyling.heading5, { color: Colors.dark_color }]}>Phone Number</Text>
-                            <TextInput keyboardType="number-pad" maxLength={13} onChangeText={(evnt) => { this.changeText('phone', evnt) }} secureTextEntry={false} placeholder="+91 8765 4321 98" value={this.state?.phone}></TextInput>
+                            <TextInput keyboardType="number-pad" maxLength={13} onChangeText={(evnt) => { this.changeText('phone', evnt) }} style={ThemeStyling.formcontrol} secureTextEntry={false} placeholder="+91 8765 4321 98" value={this.state?.phone}></TextInput>
                         </View>
                         <View style={ThemeStyling.formgroup2}>
                             <Text style={[ThemeStyling.heading5, { color: Colors.dark_color }]}>E-mail</Text>
                             <TextInput editable={false} style={ThemeStyling.formcontrol} secureTextEntry={false} placeholder="arian.zesan@gmail.com" value={this.state?.email}></TextInput>
                         </View>
                         <View style={{ marginBottom: 20 }}>
-                            <TouchableOpacity onPress={() => { this.updateUserProfile() }} style={[ThemeStyling.btnPrimary, { justifyContent: 'center', backgroundColor: Colors.success_color }]}>
+                            <TouchableOpacity onPress={() => { this.updateUserProfile() }} style={[ThemeStyling.btnPrimary, { justifyContent: 'center' }]}>
                                 <Text style={[ThemeStyling.btnText, { fontSize: Colors.FontSize.f16, color:Colors.white }]}>Update</Text>
                             </TouchableOpacity>
                         </View>

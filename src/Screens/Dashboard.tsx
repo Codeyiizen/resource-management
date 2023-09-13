@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { View, Image, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { ThemeStyling } from "../utilty/styling/Styles";
 import { FontAwesome, FontAwesome5, } from '@expo/vector-icons';
 import Colors from "../utilty/Colors";
@@ -55,14 +55,14 @@ export default class Dashboard extends Component<ScreenInterfcae, DashboardInter
                                 <Text style={[ThemeStyling.text3, { textAlign: "center" }]}>Tasks Pending</Text>
                             </View>
                             <View style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                                <Text style={{ borderRightWidth: 1, borderRightColor: Colors.dark_color, paddingVertical: 3 }}></Text>
+                                <Text style={{ borderRightWidth: 1, borderRightColor: Colors.gray400, paddingVertical: 3 }}></Text>
                             </View>
                             <View style={{ width: '30%' }}>
                                 <Text style={[ThemeStyling.heading1, { textAlign: "center", color: Colors.primary_light_color, fontSize: Colors.FontSize.f32, marginBottom: 5 }]}>34</Text>
                                 <Text style={[ThemeStyling.text3, { textAlign: "center" }]}>Tasks In Progress</Text>
                             </View>
                             <View style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                                <Text style={{ borderRightWidth: 1, borderRightColor: Colors.dark_color, paddingVertical: 3 }}></Text>
+                                <Text style={{ borderRightWidth: 1, borderRightColor: Colors.gray400, paddingVertical: 3 }}></Text>
                             </View>
                             <View style={{ width: '30%' }}>
                                 <Text style={[ThemeStyling.heading1, { textAlign: "center", color: Colors.primary_light_color, fontSize: Colors.FontSize.f32, marginBottom: 5 }]}>685</Text>
@@ -219,7 +219,7 @@ export default class Dashboard extends Component<ScreenInterfcae, DashboardInter
                         </View>
                     </View>
                     <View style={[ThemeStyling.btnContainer, { marginBottom: 80, width: '100%' }]}>
-                        <TouchableOpacity style={[ThemeStyling.btnPrimary, { width: '100%' }]} onPress={() => { this.loginUser() }} disabled={this.state?.isDisable}>
+                        <TouchableOpacity style={[ThemeStyling.btnPrimary, { width: '100%' }]}>
                             <Text style={ThemeStyling.btnText}>Add new</Text>
                         </TouchableOpacity>
                     </View>

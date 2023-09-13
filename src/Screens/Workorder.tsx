@@ -1,7 +1,7 @@
 import { Component } from "react"
-import { Text, View, ScrollView, } from "react-native";
+import { Text, View, ScrollView, TouchableOpacity} from "react-native";
 import { ThemeStyling } from "../utilty/styling/Styles";
-import { AntDesign, Feather } from '@expo/vector-icons';
+import { AntDesign, Feather, Ionicons } from '@expo/vector-icons';
 import Colors from "../utilty/Colors";
 import { CommonApiRequest } from "../utilty/api/commonApiRequest";
 import WorkorderStateInterface from "../Interfaces/States/WorkorderStateInterface";
@@ -45,13 +45,18 @@ export default class Workorder extends Component<{}, WorkorderStateInterface>{
     }
     render() {
         return (
-            <MainLayout isTopLogo={true} onRefresh={() => { this.refreshPage() }} loader={this.state?.loader}>
+            <MainLayout isTopLogo={false} onRefresh={() => { this.refreshPage() }} loader={this.state?.loader}>
                 <View>
                     <View style={[ThemeStyling.container, { minHeight: 'auto', marginTop: 20 }]}>
                         {/* Task Summary */}
-                        <View>
-                            <Text style={ThemeStyling.heading3}>Task Summary</Text>
+                        <View style={{ display: "flex", flexDirection: "row", marginBottom: 20 }}>
+                            <TouchableOpacity style={{ marginRight: 5 }}>
+                                <Ionicons name="arrow-back" style={[ThemeStyling.icon2, { fontSize: Colors.FontSize.h3, lineHeight: 30, color: Colors.dark_color, }]} /></TouchableOpacity>
+                            <Text style={[ThemeStyling.heading3, { marginBottom: 0, paddingBottom: 0 }]}>Task Summary</Text>
                         </View>
+                        {/* <View>
+                            <Text style={ThemeStyling.heading3}>Task Summary</Text>
+                        </View> */}
                         <View style={{ flexDirection: 'row' }}>
                             <ScrollView
                                 horizontal={true}
