@@ -1,23 +1,14 @@
-import React, { Component, useContext, useEffect, useState } from "react";
-import { AntDesign, Feather, FontAwesome } from '@expo/vector-icons';
-import {
-  DrawerActions,
-  NavigationContainer,
-  useNavigation,
-} from "@react-navigation/native";
+import React, { Component, } from "react";
+import { AntDesign, Feather } from '@expo/vector-icons';
+
 import "react-native-gesture-handler";
 import { createStackNavigator } from "@react-navigation/stack";
 import {
-  MaterialIcons,
-  Octicons,
-  MaterialCommunityIcons,
   FontAwesome5
 } from "@expo/vector-icons";
-import { NativeEventEmitter, StyleSheet, NativeModules, Image } from "react-native";
-import { TapGestureHandler } from "react-native-gesture-handler";
+import { StyleSheet, NativeModules, Image } from "react-native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 // import {transparent} from "react-native-papger/lib/typescript/src/styles/themes/v2/colors";
-import Home from "../Screens/Home";
 import Colors from "../utilty/Colors";
 import Workorder from "../Screens/Workorder";
 import Dashboard from "../Screens/Dashboard";
@@ -51,7 +42,7 @@ export default class AppContainer extends Component<{}> {
         initialRouteName="WorkOrder"
         screenOptions={{ headerShown: false, gestureEnabled: false }}>
         <Stack.Screen name="Work" component={Workorder} />
-        <Stack.Screen name="WorkOrderDetail" component={WorkorderDetails} options={{headerShown:true}}></Stack.Screen>
+        <Stack.Screen name="WorkOrderDetail" component={WorkorderDetails} options={{ headerShown: true }}></Stack.Screen>
       </Stack.Navigator>
     );
   }
@@ -61,7 +52,7 @@ export default class AppContainer extends Component<{}> {
         initialRouteName="HomeScreen"
         screenOptions={{ headerShown: false, gestureEnabled: false }}>
         <Stack.Screen name="Home" component={Dashboard} />
-        <Stack.Screen name="WorkOrderDetail" component={WorkorderDetails} options={{headerShown:true}}></Stack.Screen>
+        <Stack.Screen name="WorkOrderDetail" component={WorkorderDetails} options={{ headerShown: true }}></Stack.Screen>
       </Stack.Navigator>
     );
   }

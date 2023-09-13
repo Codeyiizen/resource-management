@@ -104,7 +104,7 @@ export default class Team extends Component<ScreenInterfcae, ScreenStateInterfca
                                 </TouchableOpacity>
                             </View>
                             <View style={[ThemeStyling.btnContainer, { width: '45%', marginLeft: 5 }]}>
-                                <TouchableOpacity style={[ThemeStyling.btnPrimary, { backgroundColor: Colors.success_color }]}>
+                                <TouchableOpacity style={[ThemeStyling.btnPrimary]}>
                                     <Text style={[ThemeStyling.btnText, { color: Colors.white }]}>Save</Text>
                                 </TouchableOpacity>
                             </View>

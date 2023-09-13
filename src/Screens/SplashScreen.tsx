@@ -12,7 +12,6 @@ import {
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Colors from '../utilty/Colors';
-import { CommonHelper } from '../utilty/CommonHelper';
 import { ConstantsVar } from '../utilty/ConstantsVar';
 
 const SplashScreen = ({navigation}) => {

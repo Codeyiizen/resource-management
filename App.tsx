@@ -1,7 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import i18n from './src/localization/i18n'
-import Home from './src/Screens/Home';
 import { Provider, useTheme } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
