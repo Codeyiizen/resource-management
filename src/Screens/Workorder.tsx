@@ -1,12 +1,12 @@
 import { Component } from "react"
-import { Text, View, ScrollView, TouchableOpacity} from "react-native";
+import { Text, View, ScrollView, TouchableOpacity, Pressable } from "react-native";
 import { ThemeStyling } from "../utilty/styling/Styles";
-import { AntDesign, Feather, Ionicons } from '@expo/vector-icons';
+import { AntDesign, Feather, Ionicons, MaterialCommunityIcons, SimpleLineIcons, MaterialIcons } from '@expo/vector-icons';
 import Colors from "../utilty/Colors";
 import { CommonApiRequest } from "../utilty/api/commonApiRequest";
 import WorkorderStateInterface from "../Interfaces/States/WorkorderStateInterface";
 import MainLayout from "../Layout/MainLayout";
-
+import ProgressCircle from 'react-native-progress-circle';
 
 export default class Workorder extends Component<{}, WorkorderStateInterface>{
     constructor(props: any) {
@@ -47,136 +47,133 @@ export default class Workorder extends Component<{}, WorkorderStateInterface>{
         return (
             <MainLayout isTopLogo={false} onRefresh={() => { this.refreshPage() }} loader={this.state?.loader}>
                 <View>
-                    <View style={[ThemeStyling.container, { minHeight: 'auto', marginTop: 20 }]}>
-                        {/* Task Summary */}
-                        <View style={{ display: "flex", flexDirection: "row", marginBottom: 20 }}>
-                            <TouchableOpacity style={{ marginRight: 5 }}>
-                                <Ionicons name="arrow-back" style={[ThemeStyling.icon2, { fontSize: Colors.FontSize.h3, lineHeight: 30, color: Colors.dark_color, }]} /></TouchableOpacity>
-                            <Text style={[ThemeStyling.heading3, { marginBottom: 0, paddingBottom: 0 }]}>Task Summary</Text>
+                    <View style={[ThemeStyling.container, { marginTop: 0 }]}>
+                        <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
+                            <View style={{ display: "flex", flexDirection: "row", flex: 1 }}>
+                                <TouchableOpacity>
+                                    <Ionicons name="arrow-back" style={[ThemeStyling.icon2, { fontSize: Colors.FontSize.h3, lineHeight: 30, color: Colors.dark_color, }]} />
+                                </TouchableOpacity>
+                                <Text style={[ThemeStyling.heading3, { marginBottom: 0, paddingBottom: 0, textAlign: "center", flex: 1 }]}>My Task List</Text>
+                            </View>
+                            {/* <View>
+                                <Text style={{
+                                    width: 40,
+                                    height: 40,
+                                    borderRadius: 100, shadowColor: '#000',
+                                    shadowOffset: { width: -2, height: 4 },
+                                    shadowOpacity: 0.4,
+                                    shadowRadius: 3,
+                                    backgroundColor: '#fff',
+                                    textAlign: "center",
+                                    lineHeight: 40
+                                }}>
+                                    <Ionicons name="ellipsis-vertical" size={16} style={{ color: Colors.primary_color }} />
+                                </Text>
+                            </View> */}
                         </View>
-                        {/* <View>
-                            <Text style={ThemeStyling.heading3}>Task Summary</Text>
-                        </View> */}
-                        <View style={{ flexDirection: 'row' }}>
+                        <View>
                             <ScrollView
                                 horizontal={true}
                                 showsHorizontalScrollIndicator={false}>
-                                <View style={[ThemeStyling.cardGroup, { height: 130 }]}>
-                                    <View style={[ThemeStyling.cardStyle, ThemeStyling.card, { backgroundColor: Colors.primary_color }]}>
-                                        <Text style={[ThemeStyling.text1, { fontWeight: '600', fontFamily: 'Poppins_600SemiBold', color: Colors.white }]}>20</Text>
-                                        <Text style={[ThemeStyling.text1, { fontWeight: '600', fontFamily: 'Poppins_600SemiBold', color: Colors.white }]}>Wed</Text>
+                                <View style={ThemeStyling.cardGroup}>
+                                    <View style={[ThemeStyling.cardStyle2, ThemeStyling.card, { backgroundColor: Colors.primary_color }]}>
+                                        <Text style={[ThemeStyling.text2, { color: Colors.white, marginBottom: 0, fontFamily: 'Poppins_700Bold', fontWeight: '700', }]}>All Task</Text>
                                     </View>
-                                    <View style={[ThemeStyling.cardStyle, ThemeStyling.card]}>
-                                        <Text style={[ThemeStyling.text1, { fontWeight: '600', fontFamily: 'Poppins_600SemiBold', }]}>21</Text>
-                                        <Text style={[ThemeStyling.text1, { fontWeight: '600', fontFamily: 'Poppins_600SemiBold', }]}>Thu</Text>
+                                    <View style={[ThemeStyling.cardStyle2, ThemeStyling.card]}>
+                                        <Text style={[ThemeStyling.text2, { color: Colors.secondry_color }]}>Ongoing</Text>
                                     </View>
-                                    <View style={[ThemeStyling.cardStyle, ThemeStyling.card]}>
-                                        <Text style={[ThemeStyling.text1, { fontWeight: '600', fontFamily: 'Poppins_600SemiBold', }]}>22</Text>
-                                        <Text style={[ThemeStyling.text1, { fontWeight: '600', fontFamily: 'Poppins_600SemiBold', }]}>Fri</Text>
+                                    <View style={[ThemeStyling.cardStyle2, ThemeStyling.card]}>
+                                        <Text style={[ThemeStyling.text2, { color: Colors.secondry_color }]}>Cancelled</Text>
                                     </View>
-                                    <View style={[ThemeStyling.cardStyle, ThemeStyling.card]}>
-                                        <Text style={[ThemeStyling.text1, { fontWeight: '600', fontFamily: 'Poppins_600SemiBold', }]}>23</Text>
-                                        <Text style={[ThemeStyling.text1, { fontWeight: '600', fontFamily: 'Poppins_600SemiBold', }]}>Sat</Text>
-                                    </View>
-                                    <View style={[ThemeStyling.cardStyle, ThemeStyling.card]}>
-                                        <Text style={[ThemeStyling.text1, { fontWeight: '600', fontFamily: 'Poppins_600SemiBold', }]}>24</Text>
-                                        <Text style={[ThemeStyling.text1, { fontWeight: '600', fontFamily: 'Poppins_600SemiBold', }]}>Sun</Text>
-                                    </View>
-                                    <View style={[ThemeStyling.cardStyle, ThemeStyling.card]}>
-                                        <Text style={[ThemeStyling.text1, { fontWeight: '600', fontFamily: 'Poppins_600SemiBold', }]}>25</Text>
-                                        <Text style={[ThemeStyling.text1, { fontWeight: '600', fontFamily: 'Poppins_600SemiBold', }]}>Mon</Text>
+                                    <View style={[ThemeStyling.cardStyle2, ThemeStyling.card]}>
+                                        <Text style={[ThemeStyling.text2, { color: Colors.secondry_color }]}>Completed</Text>
                                     </View>
                                 </View>
                             </ScrollView>
                         </View>
-                        <View style={ThemeStyling.card}>
-                            <View style={ThemeStyling.cardBody}>
-                                <View style={ThemeStyling.listItem}>
-                                    <View>
-                                        <Text style={ThemeStyling.listIcon}>
-                                            <AntDesign name="shoppingcart" size={18} />
-                                        </Text>
-                                    </View>
-                                    <View>
-                                        <Text style={ThemeStyling.listText}>
-                                            Lorem Ipsum is simply dummy text
-                                        </Text>
-                                        <View style={{ display: 'flex', flexDirection: "row", alignItems: "center" }}>
-                                            <View>
-                                                <Text style={[ThemeStyling.text4, { color: Colors.secondry_color, textAlign: "left" }]}>Due date 20 , Sep 2023</Text>
-                                            </View>
-                                            <View>
-                                                <View style={[ThemeStyling.badge, ThemeStyling.bgGray, { marginLeft: 5 }]}>
-                                                    <Text style={[ThemeStyling.text6, { marginBottom: 0, color: Colors.primary_color }]}>In Progress</Text>
-                                                </View>
-                                            </View>
+                        <View style={{ display: "flex", flexDirection: "row", marginBottom: 5 }}>
+                            <Text style={[ThemeStyling.text4, { color: Colors.secondry_color, textAlign: "left" }]}>You have total</Text>
+                            <Text style={[ThemeStyling.textSuccess, { marginHorizontal: 5, fontFamily: 'Poppins_700Bold', fontWeight: '700', }]}>5</Text>
+                            <Text style={[ThemeStyling.text4, { color: Colors.secondry_color, textAlign: "left" }]}>task</Text>
+                        </View>
+                        <View>
+                            <Pressable style={ThemeStyling.card} onPress={()=>{
+                                this.props.navigation.navigate("WorkOrderDetail");
+                            }}>
+                                <View style={[ThemeStyling.cardBody, { display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }]}>
+                                    <View style={{ width: '76%' }}>
+                                        <Text style={[ThemeStyling.heading5, { color: Colors.dark_color, fontFamily: 'Poppins_600SemiBold', fontWeight: '600', marginBottom: 0 }]}>Empire Homes (Welland)</Text>
+                                        <View style={{ display: "flex", flexDirection: "row" }}>
+                                            <Text style={[ThemeStyling.text4, { color: Colors.secondry_color, textAlign: "left" }]}>
+                                                <AntDesign name="clockcircleo" /> 10 hours 20:35 min </Text>
+                                            <Text style={[ThemeStyling.text4, { color: Colors.secondry_color, textAlign: "left" }]}><SimpleLineIcons name="calendar" /> Sep 20, 2023</Text>
                                         </View>
+                                        <View style={{ width: 70 }}>
+                                            <Text style={[ThemeStyling.badge, ThemeStyling.bglightSuccess, { color: Colors.success_color, marginLeft: 5 }]}>Ongoing</Text>
+                                        </View>
+                                    </View>
+                                    <View style={{ width: '20%', marginLeft: 10, justifyContent: "flex-end", display: "flex", alignItems: "flex-end" }}>
+                                        <Feather name="pause-circle" size={45} color={Colors.success_color} />
                                     </View>
                                 </View>
-                                <View style={ThemeStyling.listItem}>
-                                    <View>
-                                        <Text style={[ThemeStyling.listIcon, { backgroundColor: Colors.success_color }]}>
-                                            <Feather name="globe" size={18} />
-                                        </Text>
-                                    </View>
-                                    <View>
-                                        <Text style={ThemeStyling.listText}>
-                                            Many desktop publishing packages
-                                        </Text>
-                                        <View style={{ display: 'flex', flexDirection: "row", alignItems: "center" }}>
-                                            <View>
-                                                <Text style={[ThemeStyling.text4, { color: Colors.secondry_color, textAlign: "left" }]}>Due date 25 , Nov 2023</Text>
-                                            </View>
-                                            <View>
-                                                <View style={[ThemeStyling.badge, ThemeStyling.bglightSuccess, { marginLeft: 5 }]}>
-                                                    <Text style={[ThemeStyling.text6, { marginBottom: 0, color: Colors.success_color }]}>Completed</Text>
-                                                </View>
-                                            </View>
+                            </Pressable>
+                            <View style={ThemeStyling.card}>
+                                <View style={[ThemeStyling.cardBody, { display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }]}>
+                                    <View style={{ width: '76%' }}>
+                                        <Text style={[ThemeStyling.heading5, { color: Colors.dark_color, fontFamily: 'Poppins_600SemiBold', fontWeight: '600', marginBottom: 0 }]}>Fernbrook Homes Rockwell Estates (Rockwood)</Text>
+                                        <View style={{ display: "flex", flexDirection: "row" }}>
+                                            <Text style={[ThemeStyling.text4, { color: Colors.secondry_color, textAlign: "left" }]}>
+                                                <AntDesign name="clockcircleo" /> 07 hours 30:05 min </Text>
+                                            <Text style={[ThemeStyling.text4, { color: Colors.secondry_color, textAlign: "left" }]}> <SimpleLineIcons name="calendar" /> Due tomorrow</Text>
                                         </View>
+                                        <View style={{ width: 70 }}>
+                                            <Text style={[ThemeStyling.badge, ThemeStyling.bglightInfo, { color: Colors.gray_color, marginLeft: 5 }]}>Paused</Text>
+                                        </View>
+                                    </View>
+                                    <View style={{ width: '20%', marginLeft: 10, justifyContent: "flex-end", display: "flex", alignItems: "flex-end" }}>
+                                        <ProgressCircle
+                                            percent={.9}
+                                            radius={25}
+                                            borderWidth={4}
+                                            color={Colors.grayLight}
+                                            shadowColor={Colors.gray_color}
+                                            bgColor="#fff">
+                                            <Text style={{ fontSize: 12 }}>{'96%'}</Text>
+                                        </ProgressCircle>
                                     </View>
                                 </View>
-                                <View style={ThemeStyling.listItem}>
-                                    <View>
-                                        <Text style={[ThemeStyling.listIcon, { backgroundColor: Colors.dark_color }]}>
-                                            <Feather name="shopping-bag" size={18} />
-                                        </Text>
-                                    </View>
-                                    <View>
-                                        <Text style={ThemeStyling.listText}>
-                                            There are many variations of passages
-                                        </Text>
-                                        <View style={{ display: 'flex', flexDirection: "row", alignItems: "center" }}>
-                                            <View>
-                                                <Text style={[ThemeStyling.text4, { color: Colors.secondry_color, textAlign: "left" }]}>Due date 25 , Nov 2023</Text>
-                                            </View>
-                                            <View>
-                                                <View style={[ThemeStyling.badge, ThemeStyling.bglightInfo, { marginLeft: 5 }]}>
-                                                    <Text style={[ThemeStyling.text6, { marginBottom: 0, color: Colors.dark_color }]}>Working</Text>
-                                                </View>
-                                            </View>
+                            </View>
+                            <View style={ThemeStyling.card}>
+                                <View style={[ThemeStyling.cardBody, { display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }]}>
+                                    <View style={{ width: '76%' }}>
+                                        <Text style={[ThemeStyling.heading5, { color: Colors.dark_color, fontFamily: 'Poppins_600SemiBold', fontWeight: '600', marginBottom: 0 }]}>Kingswood Homes (Thamesford) Riverside</Text>
+
+                                        <View style={{ display: "flex", flexDirection: "row" }}>
+                                            <Text style={[ThemeStyling.text4, { color: Colors.secondry_color, textAlign: "left" }]}>
+                                                <AntDesign name="clockcircleo" /> 8 hours 0 min</Text>
+                                            <Text style={[ThemeStyling.text4, { color: Colors.secondry_color, textAlign: "left" }]}> <SimpleLineIcons name="calendar" /> Due today</Text>
                                         </View>
+                                        <View style={{ width: 90 }}>
+                                            <Text style={[ThemeStyling.badge, ThemeStyling.bglightDanger, { color: Colors.errorColor, marginLeft: 5 }]}>Completed</Text>
+                                        </View>
+                                    </View>
+                                    <View style={{ width: '20%', marginLeft: 10, justifyContent: "flex-end", display: "flex", alignItems: "flex-end" }}>
+                                        <MaterialIcons name="timer-off" size={45} color={Colors.errorColor} />
                                     </View>
                                 </View>
-                                <View style={ThemeStyling.listItem}>
-                                    <View>
-                                        <Text style={[ThemeStyling.listIcon, { backgroundColor: Colors.errorColor }]}>
-                                            <AntDesign name="tagso" size={18} />
-                                        </Text>
-                                    </View>
-                                    <View>
-                                        <Text style={ThemeStyling.listText}>
-                                            All the Lorem Ipsum generators on the Internet
-                                        </Text>
-                                        <View style={{ display: 'flex', flexDirection: "row", alignItems: "center" }}>
-                                            <View>
-                                                <Text style={[ThemeStyling.text4, { color: Colors.secondry_color, textAlign: "left" }]}>Due date 25 , Nov 2023</Text>
-                                            </View>
-                                            <View>
-                                                <View style={[ThemeStyling.badge, ThemeStyling.bgDanger, { marginLeft: 5 }]}>
-                                                    <Text style={[ThemeStyling.text6, { marginBottom: 0, color: Colors.errorColor }]}>Pending</Text>
-                                                </View>
-                                            </View>
+                            </View>
+                            <View style={ThemeStyling.card}>
+                                <View style={[ThemeStyling.cardBody, { display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }]}>
+                                    <View style={{ width: '76%' }}>
+                                        <Text style={[ThemeStyling.heading5, { color: Colors.dark_color, fontFamily: 'Poppins_600SemiBold', fontWeight: '600', marginBottom: 0 }]}>Marydel Homes Artisan Ridge (Thorold)</Text>
+                                        <View style={{ display: "flex", flexDirection: "row" }}>
+                                            <Text style={[ThemeStyling.text4, { color: Colors.secondry_color, textAlign: "left" }]}>
+                                                <AntDesign name="clockcircleo" /> 0 hours 0 min </Text>
+                                            <Text style={[ThemeStyling.text4, { color: Colors.secondry_color, textAlign: "left" }]}><SimpleLineIcons name="calendar" /> Sep 10, 2023</Text>
                                         </View>
+                                    </View>
+                                    <View style={{ width: '20%', marginLeft: 10, justifyContent: "flex-end", display: "flex", alignItems: "flex-end" }}>
+                                        <Feather name="play-circle" size={45} color={Colors.primary_color} />
                                     </View>
                                 </View>
                             </View>

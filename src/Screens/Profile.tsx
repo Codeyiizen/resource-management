@@ -179,7 +179,7 @@ export default class Profile extends Component<ScreenInterfcae, ProfileScreenInt
                             </View>
                             <View>
                                 <View style={{ display: "flex", flexDirection: "row", marginLeft: 15 }}>
-                                    <Text style={[ThemeStyling.heading4, { marginBottom: 0, paddingBottom: 0 }]}>Ester Howard </Text>
+                                    <Text style={[ThemeStyling.heading4, { marginBottom: 0, paddingBottom: 0, color:Colors.dark_color }]}>Ester Howard </Text>
                                     <TouchableOpacity style={{ marginLeft: 5 }}><AntDesign name="edit" style={[ThemeStyling.icon2, { fontSize: Colors.FontSize.h6, lineHeight: 23, color: Colors.darkBlue, }]} /></TouchableOpacity>
                                 </View>
                                 <Text style={[ThemeStyling.text5, {

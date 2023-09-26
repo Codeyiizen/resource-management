@@ -64,7 +64,7 @@ export default class InputComponent extends Component<Inputinterface> {
                             onBlur={this._handleBlur}
                             onChangeText={this._onChangeText}></TextInput>
                 {this.props?.icon &&
-                    <View  style={[ThemeStyling.inputIcon,{marginTop:3, borderRightWidth:1, paddingRight: 8,}]}>
+                    <View style={ThemeStyling.inputIcon}>
                         {this.props?.icon}
                     </View>
                 }
