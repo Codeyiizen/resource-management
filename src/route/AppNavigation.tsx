@@ -1,5 +1,5 @@
 import React, { Component, } from "react";
-import { AntDesign, Feather } from '@expo/vector-icons';
+import { AntDesign, Feather, MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 
 import "react-native-gesture-handler";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -7,6 +7,7 @@ import {
   FontAwesome5
 } from "@expo/vector-icons";
 import { StyleSheet, NativeModules, Image } from "react-native";
+import { SimpleLineIcons } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 // import {transparent} from "react-native-papger/lib/typescript/src/styles/themes/v2/colors";
 import Colors from "../utilty/Colors";
@@ -15,6 +16,9 @@ import Dashboard from "../Screens/Dashboard";
 import Team from "../Screens/Team";
 import Profile from "../Screens/Profile";
 import WorkorderDetails from "../Screens/WorkorderDetails";
+import Schedule from "../Screens/Schedule";
+import { ThemeStyling } from "../utilty/styling/Styles";
+import TimeTracker from "../Screens/TimeTracker"
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
@@ -40,9 +44,17 @@ export default class AppContainer extends Component<{}> {
     return (
       <Stack.Navigator
         initialRouteName="WorkOrder"
-        screenOptions={{ headerShown: false, gestureEnabled: false }}>
+        screenOptions={{
+          headerShown: false, gestureEnabled: false,
+          headerStyle: ThemeStyling.header,
+          headerTintColor: '#fff',
+          headerTitleStyle: ThemeStyling.headerTitle,
+          headerTitleAlign: "center",
+          title: "Work Order Details",
+        }}>
         <Stack.Screen name="Work" component={Workorder} />
-        <Stack.Screen name="WorkOrderDetail" component={WorkorderDetails} options={{ headerShown: true }}></Stack.Screen>
+        <Stack.Screen name="WorkOrderDetail" component={WorkorderDetails} options={{ headerShown: false }}></Stack.Screen>
+        <Stack.Screen name="TimeTracker" component={TimeTracker} options={{ headerShown: false }}></Stack.Screen>
       </Stack.Navigator>
     );
   }
@@ -85,28 +97,38 @@ export default class AppContainer extends Component<{}> {
             name="WorkOrder"
             component={this.WorkOrderScreen}
             options={{
-              tabBarLabel: "Work",
+              tabBarLabel: "My Task",
               tabBarIcon: ({ focused, color }) => (
-                <Feather name="settings" size={24} color={(focused) ? Colors.light_crystal_blue : Colors.white} />)
+                <Feather name="grid" size={22} color={(focused) ? Colors.light_crystal_blue : Colors.white} />)
             }}
           />
+
           <Tab.Screen
             name="Profile"
             component={Team}
             options={{
               tabBarLabel: "Add Task",
               tabBarIcon: ({ focused, color }) => (
-                <AntDesign name="plus" size={24} color={(focused) ? Colors.light_crystal_blue : Colors.white} />
+                <Ionicons name="ios-add" size={28} color={(focused) ? Colors.light_crystal_blue : Colors.white} />
               ),
+            }}
+          />
+          <Tab.Screen
+            name="Schedule"
+            component={Schedule}
+            options={{
+              tabBarLabel: "Schedule",
+              tabBarIcon: ({ focused, color }) => (
+                <MaterialCommunityIcons name="calendar-clock-outline" size={22} color={(focused) ? Colors.light_crystal_blue : Colors.white} />)
             }}
           />
           <Tab.Screen
             name="Help"
             component={Profile}
             options={{
-              tabBarLabel: "Profile",
+              tabBarLabel: "Account",
               tabBarIcon: ({ focused, color }) => (
-                <FontAwesome5 name="user-circle" size={24} color={(focused) ? Colors.light_crystal_blue : Colors.white} />
+                <AntDesign name="user" size={24} color={(focused) ? Colors.light_crystal_blue : Colors.white} />
               ),
             }}
           />

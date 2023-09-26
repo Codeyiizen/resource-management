@@ -53,6 +53,13 @@ export const ThemeStyling = StyleSheet.create({
   bglightWarning: {
     backgroundColor: 'rgba(255, 190, 12, .2)',
   },
+  header: {
+    backgroundColor: 'rgba(3, 154, 217, 1)',
+  },
+  headerTitle: {
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
   imagecontainer: {
     height: 100,
     alignItems: 'center',
@@ -65,7 +72,7 @@ export const ThemeStyling = StyleSheet.create({
     fontSize: Colors.FontSize.h1,
     fontFamily: 'Poppins_700Bold',
     fontWeight: '700',
-    color: Colors.darkBlue,
+    color: Colors.primary_color,
     textTransform: "capitalize",
     marginBottom: 15,
   },
@@ -111,7 +118,7 @@ export const ThemeStyling = StyleSheet.create({
   inputIcon: {
     color: '#000',
     position: "absolute",
-    left: 15,
+    right: 15,
     zIndex: 99,
     top: 15,
   },
@@ -121,7 +128,7 @@ export const ThemeStyling = StyleSheet.create({
     // borderColor: Colors.primary_color,
     color: Colors.gray400,
     borderStyle: 'solid',
-    borderColor:Colors.gray400,
+    borderColor: Colors.gray400,
     padding: 8,
     paddingLeft: 20,
     borderWidth: 1,
@@ -314,8 +321,8 @@ export const ThemeStyling = StyleSheet.create({
   },
   listText: {
     fontSize: Colors.FontSize.h6,
-    fontFamily: 'Poppins_400Regular',
-    fontWeight: '400',
+    fontFamily: 'Poppins_500Medium',
+    fontWeight: '500',
     color: Colors.dark_color
   },
 
@@ -378,15 +385,15 @@ export const ThemeStyling = StyleSheet.create({
 
   //Team
   profileContainer: {
-    display:"flex",
+    display: "flex",
     justifyContent: "center",
-    alignItems:"center"
+    alignItems: "center"
   },
   profileImage: {
     width: 85,
     height: 85,
     borderRadius: 50,
-    borderWidth:1,
+    borderWidth: 1,
     borderColor: Colors.gray400,
   },
   searchBar: {
@@ -407,11 +414,8 @@ export const ThemeStyling = StyleSheet.create({
     zIndex: 9999
   },
   footer: {
-    // backgroundColor: Colors.success_color,
     paddingTop: 10,
     paddingBottom: 10,
-    // borderTopLeftRadius: 5000,
-    // borderTopRightRadius: 5000,
     marginTop: 'auto',
     marginBottom: 0,
   },
@@ -498,6 +502,17 @@ export const ThemeStyling = StyleSheet.create({
     paddingLeft: 16,
     paddingRight: 16,
   },
+  btnIcon: {
+    width: 40,
+    height: 40,
+    borderRadius: 100, shadowColor: '#000',
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.4,
+    shadowRadius: 3,
+    backgroundColor: Colors.errorColor,
+    textAlign: "center",
+    lineHeight: 40
+  },
   gallery: {
     flexDirection: "row",
     justifyContent: "space-around",
@@ -525,17 +540,24 @@ export const ThemeStyling = StyleSheet.create({
     flexDirection: 'row'
   },
   cardStyle: {
-    width: 70,
-    height: 90,
-    borderRadius: 25,
+    width: 50,
+    height: 65,
     display: 'flex',
     justifyContent: "center",
     alignItems: 'center',
-    marginRight: 15
+    marginRight: 10
+  },
+  cardStyle2: {
+    display: 'flex',
+    justifyContent: "center",
+    alignItems: 'center',
+    marginRight: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
   },
   badge: {
-    paddingVertical:3,
-    paddingHorizontal:10,
+    paddingVertical: 3,
+    paddingHorizontal: 10,
     backgroundColor: Colors.grayLight,
     borderRadius: 6,
     fontSize: Colors.FontSize.f12,
@@ -548,4 +570,20 @@ export const ThemeStyling = StyleSheet.create({
   progress: {
     margin: 10,
   },
+
+  /* 
+  * Jobsite Services
+  */
+  checkboxContainer: {
+    alignItems: "center",
+    flexDirection: 'row',
+    marginBottom: 10
+  },
+  checkbox: {
+    alignSelf: 'center',
+  },
+  label: {
+    marginLeft: 10,
+  },
 });
+
