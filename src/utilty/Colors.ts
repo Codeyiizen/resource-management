@@ -23,6 +23,7 @@ const Colors = {
     },
     gray_color: '#707070',
     grayLight: '#EEEEF0',
+    gray100:'#f2f2f2',
     gray200: '#E8E9ED',
     gray300: '#5F616E',
     gray400: '#C1C6DE',
