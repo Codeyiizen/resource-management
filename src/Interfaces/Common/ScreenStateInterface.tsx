@@ -13,5 +13,6 @@ export default interface ScreenStateInterfcae{
     isLogo?:boolean,
     capturedImage?:any,
     user?:any,
-    notes?:any
+    notes?:any,
+    option?:any
 }

@@ -9,7 +9,10 @@ import Colors from "../utilty/Colors";
 import { CommonApiRequest } from "../utilty/api/commonApiRequest";
 import { CommonHelper } from "../utilty/CommonHelper";
 import { ConstantsVar } from "../utilty/ConstantsVar";
-export default class LoginScreen extends Component<{}>{
+import ScreenInterfcae from "../Interfaces/Common/ScreensInterface";
+import DashboardInterface from "../Interfaces/States/DashboardInterface";
+import CommonScreenStateInterface from "../Interfaces/States/CommonScreenStateInterface";
+export default class LoginScreen extends Component<ScreenInterfcae,CommonScreenStateInterface>{
     constructor(props: any) {
         super(props);
         this.state = {
@@ -23,20 +26,20 @@ export default class LoginScreen extends Component<{}>{
         this.props.navigation.navigate("Register");
     }
     loginUser() {
-        //this.setState({ isDisable: true });
-        this.props.navigation.navigate("AppContainer");
-        //this.setState({ loader: true });
-        // CommonApiRequest.loginUser(this.state).then((response: any) => {
-        //     this.setState({ loader: false });
-        //     this.setState({ isDisable: false });
-        //     if (response?.status == 200) {
-        //         CommonHelper.saveStorageData(ConstantsVar.USER_STORAGE_KEY, JSON.stringify(response?.results));
-        //         this.props.navigation.navigate("AppContainer");
-        //     }
-        // }).catch(() => {
-        //     this.setState({ loader: false });
-        //     this.setState({ isDisable: false });
-        // })
+        this.setState({ isDisable: true });
+        //this.props.navigation.navigate("AppContainer");
+        this.setState({ loader: true });
+        CommonApiRequest.loginUser(this.state).then((response: any) => {
+            this.setState({ loader: false });
+            this.setState({ isDisable: false });
+            if (response?.status == 200) {
+                CommonHelper.saveStorageData(ConstantsVar.USER_STORAGE_KEY, JSON.stringify(response?.results));
+                this.props.navigation.navigate("AppContainer");
+            }
+        }).catch(() => {
+            this.setState({ loader: false });
+            this.setState({ isDisable: false });
+        })
     }
     upDateMasterState(attr: any, value: any) {
         this.setState({ [attr]: value });

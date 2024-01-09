@@ -15,7 +15,7 @@ export const CommonApiRequest = {
   },
   getUserWorkOrder:async function(params:any){
     const response: any = await api.request({
-      url: `/workorder/list`+params,
+      url: `/jobsite/list`+params,
       method: "GET",
       // retrieving the signal value by using the property name
       signal: undefined,
@@ -99,6 +99,16 @@ export const CommonApiRequest = {
   getTeamsList:async function(params:any){
     const response: any = await api.request({
       url: `/teams/list`,
+      method: "GET",
+      // retrieving the signal value by using the property name
+      signal: undefined,
+    });
+    // returning the product returned by the API
+    return response?.data;
+  },
+  getTaskStatus:async function(){
+    const response: any = await api.request({
+      url: `/jobsite/status/list`,
       method: "GET",
       // retrieving the signal value by using the property name
       signal: undefined,

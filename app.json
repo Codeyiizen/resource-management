@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Dalpon App",
-    "slug": "dalpon-mobile-app",
-    "version": "1.0.4",
+    "name": "JS TimeManager",
+    "slug": "new-era-excavation",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -16,22 +16,21 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.maneesh1992.dalponmobileapp"
+      "bundleIdentifier": "com.jstimemanager.app"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.maneesh1992.dalponmobileapp"
+      "package": "com.jstimemanager.app",
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.CAMERA"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "984f2e99-0354-443e-b4fe-395652e86457"
-      }
     },
     "plugins": [
       "expo-localization",
@@ -47,6 +46,11 @@
           "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "b0a3be78-5c3c-4b3d-aa96-8f0b1175cdc3"
+      }
+    }
   }
 }

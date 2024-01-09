@@ -1,6 +1,9 @@
 // Learn more https://docs.expo.io/guides/customizing-metro
-const { getDefaultConfig } = require('expo/metro-config');
+//const { getDefaultConfig } = require('expo/metro-config');
+const {getDefaultConfig} = require('@expo/metro-config');
 
-const config = getDefaultConfig(__dirname);
+ const config = getDefaultConfig(__dirname);
 
-module.exports = config;
+ module.exports = config;
+// const config = {};  
+// module.exports = getDefaultConfig(__dirname);

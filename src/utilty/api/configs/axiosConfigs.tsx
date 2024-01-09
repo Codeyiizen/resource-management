@@ -6,7 +6,7 @@ import Colors from "../../Colors";
 
 export const api = axios.create({
   withCredentials: true,
-  baseURL: 'http://dalpon.kurieta.info/api/v1/',
+  baseURL: 'https://www.codeyiizen.com/dev/resource-management-backend/api/v1/',
 })
 
 
@@ -34,7 +34,7 @@ api.interceptors.response.use(
 // defining a custom error handler for all APIs
 const errorHandler = (error:any) => {
   const statusCode = error.response?.status;
-  console.log(statusCode);
+  //console.log(error.response);
   // logging only errors that are not 401
   if (statusCode && statusCode === 405) {
     DeviceEventEmitter.emit(ConstantsVar.API_ERROR,{color:Colors.errorColor,msgData:{head:'Error',subject:'Something went wronf please try after some time!'}})

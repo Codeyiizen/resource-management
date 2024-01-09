@@ -11,7 +11,6 @@ import { SimpleLineIcons } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 // import {transparent} from "react-native-papger/lib/typescript/src/styles/themes/v2/colors";
 import Colors from "../utilty/Colors";
-import Workorder from "../Screens/Workorder";
 import Dashboard from "../Screens/Dashboard";
 import Team from "../Screens/Team";
 import Profile from "../Screens/Profile";
@@ -19,12 +18,15 @@ import WorkorderDetails from "../Screens/WorkorderDetails";
 import Schedule from "../Screens/Schedule";
 import { ThemeStyling } from "../utilty/styling/Styles";
 import TimeTracker from "../Screens/TimeTracker"
+import Jobsite from "../Screens/Jobsite";
+import ChooseServices from "../Screens/ChooseServices";
+import ScreenInterfcae from "../Interfaces/Common/ScreensInterface";
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
-export default class AppContainer extends Component<{}> {
+export default class AppContainer extends Component<ScreenInterfcae> {
   //global.isLoggedin=true;
-  constructor(props) {
+  constructor(props:any) {
     super(props);
     this.state = {
       isAuth: false
@@ -52,8 +54,9 @@ export default class AppContainer extends Component<{}> {
           headerTitleAlign: "center",
           title: "Work Order Details",
         }}>
-        <Stack.Screen name="Work" component={Workorder} />
+        <Stack.Screen name="Work" component={Jobsite} />
         <Stack.Screen name="WorkOrderDetail" component={WorkorderDetails} options={{ headerShown: false }}></Stack.Screen>
+        <Stack.Screen name="ChooseServices" component={ChooseServices} options={{ headerShown: false }}></Stack.Screen>
         <Stack.Screen name="TimeTracker" component={TimeTracker} options={{ headerShown: false }}></Stack.Screen>
       </Stack.Navigator>
     );

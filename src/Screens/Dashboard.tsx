@@ -9,16 +9,20 @@ import DashboardInterface from "../Interfaces/States/DashboardInterface";
 import ScreenInterfcae from "../Interfaces/Common/ScreensInterface";
 import ProgressCircle from 'react-native-progress-circle';
 import { white } from "react-native-paper/lib/typescript/styles/themes/v2/colors";
+import { CommonHelper } from "../utilty/CommonHelper";
 
 export default class Dashboard extends Component<ScreenInterfcae, DashboardInterface>{
     constructor(props: any) {
         super(props);
         this.state = {
             ...this.state,
-            loader: false
+            loader: false,
+            userObj:{}
         }
     }
     async componentDidMount() {
+        const userData = await CommonHelper.getUserData();
+        this.setState({userObj:userData});
         this.props?.navigation.addListener("focus", async () => {
             await this.getApiData();
         });
@@ -46,7 +50,7 @@ export default class Dashboard extends Component<ScreenInterfcae, DashboardInter
                     <View style={[ThemeStyling.container, { justifyContent: "space-between", flexDirection: "row", minHeight: 1, width: '100%', minWidth: '100%' }]}>
                         <View>
                             <View>
-                                <Text style={[ThemeStyling.heading2, { color: Colors.white }]}>Hello, John Steward</Text>
+                                <Text style={[ThemeStyling.heading2, { color: Colors.white }]}>Hello, { CommonHelper.getUserName(this.state.userObj) }</Text>
                             </View>
                             <View style={{ marginBottom: 15 }}>
                                 <Text style={[ThemeStyling.text1, { color: Colors.primary_light_color }]}>Monday, 17 Sep 2023</Text>
