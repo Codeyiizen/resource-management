@@ -12,6 +12,8 @@ import * as Location from 'expo-location';
 import { ConstantsVar } from "../utilty/ConstantsVar";
 import { CommonHelper } from "../utilty/CommonHelper";
 import CheckBox from 'expo-checkbox';
+import { RadioButton } from "react-native-paper";
+import { DarkTheme } from "@react-navigation/native";
 export default class WorkorderDetails extends Component<ScreenInterfcae, ScreenStateInterfcae>{
     constructor(props: any) {
         super(props);
@@ -28,10 +30,13 @@ export default class WorkorderDetails extends Component<ScreenInterfcae, ScreenS
             options: [],
             isFocus: false,
             capturedImage: null,
-            notes: ''
+            notes: '',
         }
     }
     async componentDidMount() {
+        if (this.props?.route?.params?.item) {
+            this.setState({ dataObj: this.props?.route?.params?.item });
+        }
         this.setState({ cameraOn: false });
         this.setState({ user: await CommonHelper.getUserData() });
         clearInterval(this.state?.intervalId);
@@ -42,147 +47,22 @@ export default class WorkorderDetails extends Component<ScreenInterfcae, ScreenS
 
     }
     async getAPiData() {
-        CommonApiRequest.getWorkOrderDetail(this.props.route.params?.data?.id).then(async (response: any) => {
-            if (response?.status == 200) {
-                this.setState({ dataObj: response?.results });
-                this.setState({ isStarted: response?.results?.is_started });
-                const diffTime = await CommonHelper.diffrenceBetween2date(new Date(response?.results?.work_order_start_date), new Date(this.state?.currentDate));
-                this.setState({ rawMiliSeconds: diffTime });
-                if (this.state.isStarted) {
-                    this.setState({
-                        intervalId: setInterval(() => {
-                            this.setState({ rawMiliSeconds: this.state.rawMiliSeconds + 1000 });
-                        }, 1000)
-                    })
-                }
-            }
-        })
+
     }
     async getTeams() {
         CommonApiRequest.getTeams({}).then(async (response: any) => {
             this.setState({ options: response?.results });
         });
     }
-    async startTimer() {
-        if (this.state.capturedImage && this.state.selected?.length > 0) {
-
-            this.setState({ loader: true });
-            let location = await Location.getCurrentPositionAsync({});
-            const dataSend = {
-                work_order_id: this.state?.dataObj?.id,
-                work_order_start_date: new Date().toString(),
-                location: location,
-                photo: "image/png;base64," + this.state.capturedImage?.base64,
-                teams: this.state.selected
-            }
-            CommonApiRequest.startWorkoutTimer(dataSend).then((response) => {
-                this.setState({ loader: false });
-                if (response?.status == 200) {
-                    DeviceEventEmitter.emit(ConstantsVar.API_ERROR, { color: Colors.theme_success_color, msgData: { head: 'Success', subject: 'Your hours log-in start successfully!', top: 20 } })
-                    this.setState({ dataObj: response?.results });
-                    this.setState({ isStarted: true, capturedImage: null });
-
-                } else {
-                    if (response?.msg) {
-                        DeviceEventEmitter.emit(ConstantsVar.API_ERROR, { color: Colors.errorColor, msgData: { head: 'Error', subject: response?.msg, top: 20 } })
-                    }
-                }
-            }).catch(() => {
-                this.setState({ loader: false });
-            });
-        } else {
-            DeviceEventEmitter.emit(ConstantsVar.API_ERROR, { color: Colors.errorColor, msgData: { head: 'Error', subject: "Please select teams and click picture before start timer", top: 20 } })
-        }
-
-    }
-    async stopTimer() {
-        if (this.state.capturedImage) {
-            Alert.alert(
-                'Stop Work',
-                'Are you sure? You want to stop the work?',
-                [
-                    {
-                        text: 'Cancel',
-                        onPress: () => {
-                            return null;
-                        },
-                    },
-                    {
-                        text: 'Confirm',
-                        onPress: async () => {
-                            await this.stopWork();
-                        },
-                    },
-                ],
-                { cancelable: false },
-            );
-        } else {
-            DeviceEventEmitter.emit(ConstantsVar.API_ERROR, { color: Colors.errorColor, msgData: { head: 'Error', subject: "Please select  click picture before end timer", top: 20 } })
-        }
-    }
-    refreshAPiData() {
-        clearInterval(this.state?.intervalId);
-        this.getAPiData();
-    }
-    async stopWork() {
-        this.setState({ loader: true });
-        let location = await Location.getCurrentPositionAsync({});
-        const dataSend = {
-            work_order_id: this.state?.dataObj?.id,
-            work_order_end_date: new Date().toString(),
-            location: location,
-            photo: "image/png;base64," + this.state.capturedImage?.base64,
-            note: this.state.notes
-        }
-        CommonApiRequest.endWorkoutTimer(dataSend).then((response) => {
-            if (response?.status == 200) {
-                clearInterval(this.state?.intervalId);
-                DeviceEventEmitter.emit(ConstantsVar.API_ERROR, { color: Colors.theme_success_color, msgData: { head: 'Success', subject: 'Your hours logged successfully!', top: 20 } })
-                this.setState({ loader: false });
-                this.setState({ dataObj: response?.results });
-                this.setState({ isStarted: false });
-            }
-        }).catch((error: any) => {
-            this.setState({ loader: false });
-        });
-    }
-    setSelected(data: any) {
-        this.setState({ selected: data });
-    }
-    openCamera() {
-        this.setState({ cameraOn: true, isLogo: false });
-    }
-    onCaptureImageFromCamera(data: any) {
-        this.setState({ capturedImage: { uri: data?.uri, base64: data?.base64 } });
+    onClickMachine(data: any) {
+        this.setState({ params: data });
+        this.props.navigation.navigate("ChooseServices",{item:data,machine_id:data?.machine_id});
     }
     render() {
         return (
-            <MainLayout isTopLogo={false} onRefresh={() => { this.refreshPage() }} loader={this.state?.loader}>
+            <MainLayout isTopLogo={false} onRefresh={() => { }} loader={this.state?.loader} headerText="Select Machine" navigation={this.props?.navigation} backButton={true}>
                 <View>
                     <View style={[ThemeStyling.container, { marginTop: 0 }]}>
-                        <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
-                            <View style={{ display: "flex", flexDirection: "row", flex: 1 }}>
-                                <TouchableOpacity>
-                                    <Ionicons name="arrow-back" style={[ThemeStyling.icon2, { fontSize: Colors.FontSize.h3, lineHeight: 30, color: Colors.dark_color, }]} />
-                                </TouchableOpacity>
-                                <Text style={[ThemeStyling.heading3, { marginBottom: 0, paddingBottom: 0, textAlign: "center", flex: 1 }]}>Jobsite Details</Text>
-                            </View>
-                            <View>
-                                <Text style={{
-                                    width: 40,
-                                    height: 40,
-                                    borderRadius: 100, shadowColor: '#000',
-                                    shadowOffset: { width: -2, height: 4 },
-                                    shadowOpacity: 0.4,
-                                    shadowRadius: 3,
-                                    backgroundColor: '#fff',
-                                    textAlign: "center",
-                                    lineHeight: 40
-                                }}>
-                                    <Ionicons name="ellipsis-vertical" size={16} style={{ color: Colors.primary_color }} />
-                                </Text>
-                            </View>
-                        </View>
                         <View style={{ marginBottom: 15, display: "flex", flexDirection: "row", alignItems: "center" }}>
                             <Text style={[ThemeStyling.listIcon, ThemeStyling.bglightPrimary, { borderRadius: 8, }]}>
                                 <Ionicons name="location-outline" size={16} style={{ color: Colors.primary_color, flex: 1, flexWrap: 'wrap' }} />
@@ -190,64 +70,38 @@ export default class WorkorderDetails extends Component<ScreenInterfcae, ScreenS
                             <Text style={[ThemeStyling.heading5, {
                                 color: Colors.dark_color, flex: 1, flexWrap: 'wrap', fontFamily: 'Poppins_500Medium',
                                 fontWeight: '500'
-                            }]}>Crystal Grand River Woods (Cambridge)</Text>
+                            }]}>{this.state?.dataObj?.job_name} ({this.state?.dataObj?.job_address})</Text>
                         </View>
                         <View>
-                            <Text style={ThemeStyling.text1}>Services (13)</Text>
+                            <Text style={ThemeStyling.text1}>Machines ({this.state.dataObj?.job_machines?.length})</Text>
                         </View>
-                        
-                        <Pressable style={ThemeStyling.checkboxContainer} onPress={() => {
-                            this.props.navigation.navigate("TimeTracker");
-                        }}>
-                            <View><CheckBox /></View>
-                            <View style={ThemeStyling.label}>
-                                <Text style={{ fontFamily: 'Poppins_600SemiBold', fontWeight: '600' }}>Backfill</Text>
-                                <Text style={[ThemeStyling.text2, { color: Colors.secondry_color }]}>Incomplete</Text>
-                            </View>
-                        </Pressable>
-
-                        <View style={ThemeStyling.checkboxContainer}>
-                            <View><CheckBox /></View>
-                            <View style={ThemeStyling.label}>
-                                <Text style={{ fontFamily: 'Poppins_600SemiBold', fontWeight: '600' }}>Rough Grade</Text>
-                                <Text style={[ThemeStyling.text2, { color: Colors.secondry_color }]}>Incomplete</Text>
-                            </View>
-                        </View>
-                        <View style={ThemeStyling.checkboxContainer}>
-                            <View><CheckBox /></View>
-                            <View style={ThemeStyling.label}>
-                                <Text style={{ fontFamily: 'Poppins_600SemiBold', fontWeight: '600' }}>Stockpile</Text>
-                                <Text style={[ThemeStyling.text2, { color: Colors.secondry_color }]}>Incomplete</Text>
-                            </View>
-                        </View>
-                        <View style={ThemeStyling.checkboxContainer}>
-                            <View><CheckBox /></View>
-                            <View style={ThemeStyling.label}>
-                                <Text style={{ fontFamily: 'Poppins_600SemiBold', fontWeight: '600' }}>Rip Frost</Text>
-                                <Text style={[ThemeStyling.text2, { color: Colors.secondry_color }]}>Incomplete</Text>
-                            </View>
-                        </View>
-                        <View style={ThemeStyling.checkboxContainer}>
-                            <View><CheckBox /></View>
-                            <View style={ThemeStyling.label}>
-                                <Text style={{ fontFamily: 'Poppins_600SemiBold', fontWeight: '600' }}>Training</Text>
-                                <Text style={[ThemeStyling.text2, { color: Colors.secondry_color }]}>Incomplete</Text>
-                            </View>
-                        </View>
-                        <View style={ThemeStyling.checkboxContainer}>
-                            <View><CheckBox /></View>
-                            <View style={ThemeStyling.label}>
-                                <Text style={{ fontFamily: 'Poppins_600SemiBold', fontWeight: '600' }}>Spread Fill</Text>
-                                <Text style={[ThemeStyling.text2, { color: Colors.secondry_color }]}>Incomplete</Text>
-                            </View>
-                        </View>
-                        <View style={ThemeStyling.checkboxContainer}>
-                            <View><CheckBox /></View>
-                            <View style={ThemeStyling.label}>
-                                <Text style={{ fontFamily: 'Poppins_600SemiBold', fontWeight: '600' }}>Other</Text>
-                                <Text style={[ThemeStyling.text2, { color: Colors.secondry_color }]}>Incomplete</Text>
-                            </View>
-                        </View>
+                        <RadioButton.Group
+                            onValueChange={value => this.onClickMachine(value)}
+                            value={this.state?.params}
+                        >
+                            {this.state.dataObj?.job_machines && this.state.dataObj?.job_machines?.map((item: any, index: number) => {
+                                return <Pressable style={[ThemeStyling.checkboxContainer]} onPress={() => {
+                                }} key={index}>
+                                        <View>
+                                            <RadioButton.Item
+                                                value={item}
+                                                color={Colors.primary_color}
+                                                status={this.state?.params === item ? 'checked' : 'unchecked'}
+                                                //uncheckedColor={Colors.primary_color}
+                                                theme={{
+                                                    version: 3,
+                                                    mode: 'exact',
+                                                }}
+                                                label={item?.machine_name}
+                                                uncheckedColor={Colors.primary_color}
+                                                mode="android"
+                                                position="leading"
+                                                style={{margin:0,padding:0}}
+                                            />
+                                        </View>
+                                </Pressable>
+                            })}
+                        </RadioButton.Group>
                     </View>
                 </View>
             </MainLayout>

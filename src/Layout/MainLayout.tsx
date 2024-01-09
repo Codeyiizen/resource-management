@@ -2,13 +2,14 @@ import { Component } from "react";
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from "../Screens/Home";
 import i18n from '../localization/i18n';
-import { ActivityIndicator, DeviceEventEmitter, Image, RefreshControl, ScrollView, Text, View } from "react-native";
+import { ActivityIndicator, DeviceEventEmitter, Image, RefreshControl, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { ThemeStyling } from "../utilty/styling/Styles";
 import LayoutInterface from "../Interfaces/Common/LayoutInterface";
 import Colors from "../utilty/Colors";
 import { Snackbar } from "react-native-paper";
 import LayoutStateInterface from "../Interfaces/States/LayoutStateInterface";
 import { ConstantsVar } from "../utilty/ConstantsVar";
+import { Ionicons } from '@expo/vector-icons';
 const Stack = createStackNavigator();
 export default class MainLayout extends Component<LayoutInterface, LayoutStateInterface>{
     constructor(props: any) {
@@ -33,7 +34,7 @@ export default class MainLayout extends Component<LayoutInterface, LayoutStateIn
                 color: data?.color,
                 msgData: data?.msgData
             })
-            if(data?.top){
+            if (data?.top) {
                 this.setState({
                     top: data?.top
                 });
@@ -45,10 +46,10 @@ export default class MainLayout extends Component<LayoutInterface, LayoutStateIn
         return (
             <>
                 <ScrollView refreshControl={<RefreshControl
-                        refreshing={this.state?.refresh}
-                        //refresh control used for the Pull to Refresh
-                        onRefresh={this.refreshData.bind(this)}
-                    />} style={[ThemeStyling.scrollView, this.props?.style]} contentContainerStyle={{ paddingTop: 45, }}>
+                    refreshing={this.state?.refresh}
+                    //refresh control used for the Pull to Refresh
+                    onRefresh={this.refreshData.bind(this)}
+                />} style={[ThemeStyling.scrollView, this.props?.style]} contentContainerStyle={{ paddingTop: 45, }}>
                     {this.props?.isTopLogo &&
                         <View style={ThemeStyling.imagecontainer}>
                             <Image style={ThemeStyling.image} source={require('../../assets/staticimages/logo.png')} />
@@ -60,11 +61,24 @@ export default class MainLayout extends Component<LayoutInterface, LayoutStateIn
                         </View>
                     }
 
-                    {/* <RefreshControl
+                    <RefreshControl
                         refreshing={this.state?.refresh}
-                        //refresh control used for the Pull to Refresh
                         onRefresh={this.refreshData.bind(this)}
-                    /> */}
+                    />
+                    {this.props?.headerText &&
+                        <View style={[{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: 30, paddingLeft: 15 }]}>
+                            <View style={{ display: "flex", flexDirection: "row", flex: 1 }}>
+                                {this.props?.backButton &&
+                                    <TouchableOpacity onPress={() => {
+                                        this.props.navigation.goBack()
+                                    }}>
+                                        <Ionicons name="arrow-back" style={[ThemeStyling.icon2, { fontSize: Colors.FontSize.h3, lineHeight: 30, color: Colors.dark_color, }]} />
+                                    </TouchableOpacity>
+                                }
+                                <Text style={[ThemeStyling.heading3, { marginBottom: 0, paddingBottom: 0, textAlign: "center", flex: 1,marginLeft:0 }]}>{this.props?.headerText}</Text>
+                            </View>
+                        </View>
+                    }
                     {this.props?.children}
                 </ScrollView>
                 <Snackbar

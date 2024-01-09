@@ -66,5 +66,28 @@ export const CommonHelper = {
             return hours + ":" + minutes + ":" + seconds;
         }
         return minutes + ":" + seconds;
+    },
+    getUserName: function(dataObj:any){
+        return dataObj?.fname+" "+dataObj?.lname;
+    },
+    getJobName: function(dataObj:any){
+        return dataObj?.job_name+" ("+dataObj?.job_address+")"
+    },
+    calculateDistance: async function(origin: { latitude: number; longitude: number },destination: { latitude: number; longitude: number },unit: 'km' | 'mi' = 'km'
+    ){
+        return (
+            ((Math.acos(
+                Math.sin((origin.latitude * Math.PI) / 180) *
+                Math.sin((destination.latitude * Math.PI) / 180) +
+                Math.cos((origin.latitude * Math.PI) / 180) *
+                Math.cos((destination.latitude * Math.PI) / 180) *
+                Math.cos(((origin.longitude - destination.longitude) *
+            Math.PI) / 180)
+        ) * 180) /
+        Math.PI) *
+        60 * 1.1515 *
+        (unit === 'mi' ? 1000 : 1)
+        );
     }
+
 }

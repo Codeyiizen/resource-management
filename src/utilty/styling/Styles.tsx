@@ -202,6 +202,21 @@ export const ThemeStyling = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 5,
   },
+  activeCard:{
+    backgroundColor:Colors.primary_color
+  },
+  deActiveCard:{
+    
+  },
+  activeTextColor:{
+    color:Colors.white,
+    marginBottom: 0, 
+    fontFamily: 'Poppins_700Bold', 
+    fontWeight: '700'
+  },
+  deActiveTextColor:{
+    color:Colors.secondry_color
+  },
   cardBody: {
     padding: 15,
   },
