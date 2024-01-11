@@ -130,9 +130,9 @@ export default class Dashboard extends Component<ScreenInterfcae, DashboardInter
                                 </Text>
                             </View>
                         </View>
-                        <View style={{ marginLeft: 10 }}>
+                        <TouchableOpacity onPress={()=>{this.props.navigation.navigate("Work")}} style={{ marginLeft: 10 }}>
                             <Text style={[ThemeStyling.text1, { textAlign: "right", marginBottom: 0 }]}> See All</Text>
-                        </View>
+                        </TouchableOpacity>
                     </View>
                     <View style={[ThemeStyling.card, { flex: 1 }]}>
                         <View style={[ThemeStyling.cardBody, { display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }]}>

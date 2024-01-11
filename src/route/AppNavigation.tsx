@@ -55,7 +55,7 @@ export default class AppContainer extends Component<ScreenInterfcae> {
           title: "Work Order Details",
         }}>
         <Stack.Screen name="Work" component={Jobsite} />
-        <Stack.Screen name="WorkOrderDetail" component={WorkorderDetails} options={{ headerShown: false }}></Stack.Screen>
+        <Stack.Screen name="WorkOrderDetail" component={WorkorderDetails} options={()=>({ headerShown: false })} ></Stack.Screen>
         <Stack.Screen name="ChooseServices" component={ChooseServices} options={{ headerShown: false }}></Stack.Screen>
         <Stack.Screen name="TimeTracker" component={TimeTracker} options={{ headerShown: false }}></Stack.Screen>
       </Stack.Navigator>
@@ -67,6 +67,7 @@ export default class AppContainer extends Component<ScreenInterfcae> {
         initialRouteName="HomeScreen"
         screenOptions={{ headerShown: false, gestureEnabled: false }}>
         <Stack.Screen name="Home" component={Dashboard} />
+        <Stack.Screen name="Work" component={Jobsite} />
         <Stack.Screen name="WorkOrderDetail" component={WorkorderDetails} options={{ headerShown: true }}></Stack.Screen>
       </Stack.Navigator>
     );
@@ -81,7 +82,6 @@ export default class AppContainer extends Component<ScreenInterfcae> {
           inactiveColor={Colors.white}
           barStyle={{ height: 85, backgroundColor: Colors.primary_color }}
           labeled={true}
-
         >
           <Tab.Screen
             name="HomePage"
