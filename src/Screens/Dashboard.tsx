@@ -45,7 +45,7 @@ export default class Dashboard extends Component<ScreenInterfcae, DashboardInter
     }
     render() {
         return (
-            <MainLayout onRefresh={() => { this.refreshPage() }} loader={this.state?.loader}>
+            <MainLayout onRefresh={() => { this.refreshPage() }} loader={this.state?.loader} >
                 <View style={[ThemeStyling.bgPrimary, { borderBottomLeftRadius: 10, borderBottomRightRadius: 10, paddingBottom: 15 }]}>
                     <View style={[ThemeStyling.container, { justifyContent: "space-between", flexDirection: "row", minHeight: 1, width: '100%', minWidth: '100%' }]}>
                         <View>

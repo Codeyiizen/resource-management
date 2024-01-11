@@ -49,7 +49,7 @@ export default class MainLayout extends Component<LayoutInterface, LayoutStateIn
                     refreshing={this.state?.refresh}
                     //refresh control used for the Pull to Refresh
                     onRefresh={this.refreshData.bind(this)}
-                />} style={[ThemeStyling.scrollView, this.props?.style]} contentContainerStyle={{ paddingTop: 45,height:'100%' }}>
+                />} style={[ThemeStyling.scrollView, this.props?.style]} contentContainerStyle={{ paddingTop: 45 }}>
                     {this.props?.isTopLogo &&
                         <View style={ThemeStyling.imagecontainer}>
                             <Image style={ThemeStyling.image} source={require('../../assets/staticimages/logo.png')} />

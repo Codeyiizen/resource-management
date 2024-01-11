@@ -1,5 +1,5 @@
 import { Component } from "react"
-import { Text, View, ScrollView, TouchableOpacity, Image } from "react-native";
+import { Text, View, ScrollView, TouchableOpacity, Image, TextInput } from "react-native";
 import { ThemeStyling } from "../utilty/styling/Styles";
 import { AntDesign, Feather, Ionicons, MaterialCommunityIcons, SimpleLineIcons, MaterialIcons, FontAwesome } from '@expo/vector-icons';
 import Colors from "../utilty/Colors";
@@ -45,18 +45,18 @@ export default class Workorder extends Component<ScreenInterfcae, WorkorderState
             machine_id: this.props?.route?.params?.machine?.machine_id,
             job_site_id: this.props?.route?.params?.machine?.job_site_id,
             job_start_date: new Date().toLocaleString(),
-            cords:location?.coords
+            cords: location?.coords
         }
-        CommonApiRequest.startLogTimer(objApiData).then((response)=>{
+        CommonApiRequest.startLogTimer(objApiData).then((response) => {
             this.setState({ loader: false });
-            if(response?.status==200 || response?.status==500){
-                this.setState({isStarted:true});
+            if (response?.status == 200 || response?.status == 500) {
+                this.setState({ isStarted: true });
             }
-        }).catch((error)=>{
+        }).catch((error) => {
             this.setState({ loader: false });
         })
     }
-    refreshPage(){
+    refreshPage() {
 
     }
     render() {
@@ -79,7 +79,7 @@ export default class Workorder extends Component<ScreenInterfcae, WorkorderState
                                         <Text style={[ThemeStyling.text1, { textAlign: "center" }]}>Your are currently</Text>
                                     </View>
                                     <View style={{ marginLeft: 5 }}>
-                                        <Text style={{ marginBottom: 0, color: ((this.state.isStarted))?Colors.success_color:Colors.errorColor }}>{(this.state.isStarted)?"Punched In!":"Punched Out!"}</Text>
+                                        <Text style={{ marginBottom: 0, color: ((this.state.isStarted)) ? Colors.success_color : Colors.errorColor }}>{(this.state.isStarted) ? "Punched In!" : "Punched Out!"}</Text>
                                     </View>
                                 </View>
                             </View>
@@ -90,30 +90,45 @@ export default class Workorder extends Component<ScreenInterfcae, WorkorderState
                                         <Text style={[ThemeStyling.text2, { color: Colors.secondry_color, lineHeight: 15, textAlign: "center", textTransform: "uppercase" }]}>Start Time</Text>
                                     </View>
                                     <View>
-                                        <FontAwesome name="circle" size={20} style={{ color: (this.state.isStarted)?Colors.success_color:Colors.errorColor}} />
-                                        <Text style={[ThemeStyling.text2, { textAlign: "center", color: (this.state.isStarted)?Colors.success_color:Colors.errorColor, textTransform: "uppercase" }]}>{(this.state.isStarted)?'In':"Out"}</Text>
+                                        <FontAwesome name="circle" size={20} style={{ color: (this.state.isStarted) ? Colors.success_color : Colors.errorColor }} />
+                                        <Text style={[ThemeStyling.text2, { textAlign: "center", color: (this.state.isStarted) ? Colors.success_color : Colors.errorColor, textTransform: "uppercase" }]}>{(this.state.isStarted) ? 'In' : "Out"}</Text>
                                     </View>
                                     <View>
                                         <Text style={[ThemeStyling.heading4, { marginBottom: 0, lineHeight: 22 }]}>0:10:00</Text>
                                         <Text style={[ThemeStyling.text2, { color: Colors.secondry_color, lineHeight: 15, textAlign: "center", textTransform: "uppercase" }]}>Duration</Text>
                                     </View>
                                 </View>
-                            } 
+                            }
 
                             <View style={{ justifyContent: 'center', alignItems: "center", flex: 1, marginBottom: 20 }}>
                                 <TouchableOpacity
                                     onPress={() => { this.startTimer() }}
                                     style={[ThemeStyling.btnSuccess, { width: 150, height: 45, alignItems: "center", flexDirection: "row" }]}
                                 >
-                                    <FontAwesome name={(this.state.isStarted)?'hand-o-left':"hand-o-right"} size={24} color="white" />
-                                    <Text style={[ThemeStyling.btnText, { fontSize: Colors.FontSize.f16, color: Colors.white, marginLeft: 10 }]}>{(this.state.isStarted)?'Punch Out':"Punch In"}</Text>
+                                    <FontAwesome name={(this.state.isStarted) ? 'hand-o-left' : "hand-o-right"} size={24} color="white" />
+                                    <Text style={[ThemeStyling.btnText, { fontSize: Colors.FontSize.f16, color: Colors.white, marginLeft: 10 }]}>{(this.state.isStarted) ? 'Punch Out' : "Punch In"}</Text>
                                 </TouchableOpacity>
                             </View>
 
-                            <View style={{ justifyContent: "center", flex: 1, flexDirection: "row", marginBottom: 10 }}>
-                                <FontAwesome name="commenting-o" size={20} style={{ color: Colors.primary_color, marginRight: 5 }} />
-                                <Text>Notes</Text>
+                            <View style={[ThemeStyling.notesBlock, { marginBottom: 10 }]}>
+                                <View style={{ justifyContent: "center", flex: 1, flexDirection: "row", marginBottom: 10 }}>
+                                    <FontAwesome name="commenting-o" size={20} style={{ color: Colors.primary_color, marginRight: 5 }} />
+                                    <Text>Notes</Text>
+                                </View>
+                                <View style={ThemeStyling.formgroup2}>
+                                    <Text style={[ThemeStyling.heading5, { color: Colors.dark_color }]}>Enter Message here</Text>
+                                    <TextInput style={[ThemeStyling.formcontrol, {borderRadius:8, justifyContent:'flex-start', alignItems:"flex-start", flex:1, top:5}]} secureTextEntry={false}
+                                        multiline={true}
+                                        numberOfLines={4}
+                                        placeholder="e.g. required two brush..."></TextInput>
+                                </View>
+                                <View style={{ marginBottom: 20 }}>
+                                    <TouchableOpacity style={[ThemeStyling.btnPrimary, { justifyContent: 'center' }]}>
+                                        <Text style={[ThemeStyling.btnText, { fontSize: Colors.FontSize.f16, color: Colors.white }]}>Save</Text>
+                                    </TouchableOpacity>
+                                </View>
                             </View>
+
                             <View>
                                 <View style={[ThemeStyling.twoColumnLayout, { justifyContent: "space-between", marginBottom: 5 }]}>
                                     <View>
