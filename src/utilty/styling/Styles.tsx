@@ -504,6 +504,13 @@ export const ThemeStyling = StyleSheet.create({
     paddingLeft: 16,
     paddingRight: 16,
   },
+  btnDanger: {
+    backgroundColor: Colors.errorColor,
+    borderRadius: 100,
+    padding: 10,
+    paddingLeft: 16,
+    paddingRight: 16,
+  },
   btnLightDanger: {
     backgroundColor: Colors.dangerLight,
     borderRadius: 100,
