@@ -49,7 +49,7 @@ export default class MainLayout extends Component<LayoutInterface, LayoutStateIn
                     refreshing={this.state?.refresh}
                     //refresh control used for the Pull to Refresh
                     onRefresh={this.refreshData.bind(this)}
-                />} style={[ThemeStyling.scrollView, this.props?.style]} contentContainerStyle={{ paddingTop: 45, }}>
+                />} style={[ThemeStyling.scrollView, this.props?.style]} contentContainerStyle={{ paddingTop: 45,height:'100%' }}>
                     {this.props?.isTopLogo &&
                         <View style={ThemeStyling.imagecontainer}>
                             <Image style={ThemeStyling.image} source={require('../../assets/staticimages/logo.png')} />
@@ -66,7 +66,7 @@ export default class MainLayout extends Component<LayoutInterface, LayoutStateIn
                         onRefresh={this.refreshData.bind(this)}
                     />
                     {this.props?.headerText &&
-                        <View style={[{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: 30, paddingLeft: 15 }]}>
+                        <View style={[{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: 18,marginBottom:10, paddingLeft: 15 }]}>
                             <View style={{ display: "flex", flexDirection: "row", flex: 1 }}>
                                 {this.props?.backButton &&
                                     <TouchableOpacity onPress={() => {

@@ -51,7 +51,8 @@ export default class Jobsite extends Component<ScreenInterfcae, WorkorderStateIn
         })
     }
     async refreshPage() {
-        await this.getApiData();
+        const serahcText = "?q=" + this.state.selectedFilter;
+        await this.getApiData(serahcText);
     }
     async serachingData() {
         const serahcText = "?q=" + this.state?.serachText;
@@ -86,6 +87,7 @@ export default class Jobsite extends Component<ScreenInterfcae, WorkorderStateIn
                                             <Text style={[ThemeStyling.text2, (this.state.selectedFilter === item?.value) ? ThemeStyling.activeTextColor : ThemeStyling.deActiveTextColor]}>{item?.name}</Text>
                                         </TouchableOpacity>
                                     })}
+                                    
                                 </View>
                             </ScrollView>
                         </View>

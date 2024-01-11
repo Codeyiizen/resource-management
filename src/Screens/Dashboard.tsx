@@ -53,7 +53,7 @@ export default class Dashboard extends Component<ScreenInterfcae, DashboardInter
                                 <Text style={[ThemeStyling.heading2, { color: Colors.white }]}>Hello, { CommonHelper.getUserName(this.state.userObj) }</Text>
                             </View>
                             <View style={{ marginBottom: 15 }}>
-                                <Text style={[ThemeStyling.text1, { color: Colors.primary_light_color }]}>Monday, 17 Sep 2023</Text>
+                                <Text style={[ThemeStyling.text1, { color: Colors.primary_light_color }]}>{CommonHelper.getCurrentDate()}</Text>
                             </View>
                         </View>
                         <View style={{ position: "relative", top: 10 }}>

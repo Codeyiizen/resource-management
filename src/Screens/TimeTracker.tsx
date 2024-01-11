@@ -8,22 +8,34 @@ import WorkorderStateInterface from "../Interfaces/States/WorkorderStateInterfac
 import MainLayout from "../Layout/MainLayout";
 import ProgressCircle from 'react-native-progress-circle';
 import ButtonComponent from "../Components/Common/ButtonComponent";
+import ScreenInterfcae from "../Interfaces/Common/ScreensInterface";
+import { CommonHelper } from "../utilty/CommonHelper";
 
-export default class Workorder extends Component<{}, WorkorderStateInterface>{
+export default class Workorder extends Component<ScreenInterfcae, WorkorderStateInterface>{
     constructor(props: any) {
         super(props);
         this.state = {
             objWorkorder: {},
             loader: false,
             serachText: '',
+            user:{},
+            intervalId:0
         }
     }
     async componentDidMount() {
+        this.setState({user:await CommonHelper.getUserData()});
         this.props?.navigation.addListener("focus", async () => {
             await this.getApiData();
         });
         this.setState({ loader: true });
-        await this.getApiData()
+        const interval = setInterval(() => {
+            this.setState({
+              curTime : new Date().toLocaleString(),
+              curDate: new Date()
+            });
+          }, 1000)
+          this.setState({intervalId:interval});
+        await this.getApiData();
     }
     async getApiData(params: any = "") {
         await CommonApiRequest.getUserWorkOrder(params).then((response: any) => {
@@ -44,28 +56,19 @@ export default class Workorder extends Component<{}, WorkorderStateInterface>{
     retirectToDetail(data: any) {
         this.props.navigation?.navigate("WorkOrderDetail", { data: data });
     }
+    componentWillUnmount(): void {
+        clearInterval(this.state.intervalId);
+    }
     render() {
         return (
-            <MainLayout isTopLogo={false} onRefresh={() => { this.refreshPage() }} loader={this.state?.loader}>
+            <MainLayout isTopLogo={false} onRefresh={() => { this.refreshPage() }} loader={this.state?.loader} headerText="Time Tracking" backButton={true} navigation={this.props.navigation}>
                 <View>
                     <View style={[ThemeStyling.container, { marginTop: 0 }]}>
-                        <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
-                            <View style={{ display: "flex", flexDirection: "row", flex: 1 }}>
-                                <TouchableOpacity>
-                                    <Ionicons name="arrow-back" style={[ThemeStyling.icon2, { fontSize: Colors.FontSize.h3, lineHeight: 30, color: Colors.dark_color, }]} />
-                                </TouchableOpacity>
-                                <Text style={[ThemeStyling.heading3, { marginBottom: 0, paddingBottom: 0, textAlign: "center", flex: 1 }]}>Time Tracking</Text>
-                            </View>
-                            {/* <View>
-                                <Text style={ThemeStyling.btnIcon}>
-                                    <FontAwesome name="power-off" size={25} style={{ color: Colors.white }} />
-                                </Text>
-                            </View> */}
-                        </View>
+                        
                         <View>
                             <View style={{ marginBottom: 50 }}>
                                 <Text style={[ThemeStyling.heading5, { textAlign: "center", marginBottom: 0, color: Colors.dark_color, fontWeight: '600', fontFamily: 'Poppins_600SemiBold', }]}>Punch Clock</Text>
-                                <Text style={[ThemeStyling.text2, { color: Colors.success_color, textAlign: "center" }]}>25 Sep at 4:24 PM</Text>
+                                <Text style={[ThemeStyling.text2, { color: Colors.success_color, textAlign: "center" }]}>{CommonHelper.convertDateTimeToDateAndTime(this.state.curTime,this.state.curDate)}</Text>
                             </View>
                             <View style={[ThemeStyling.threeColumnLayout, { marginBottom: 50 }]}>
                                 <View>
@@ -83,7 +86,7 @@ export default class Workorder extends Component<{}, WorkorderStateInterface>{
                             </View>
                             <View style={{ marginBottom: 20 }}>
                                 <View>
-                                    <Text style={[ThemeStyling.heading2, { textAlign: "center", marginBottom: 5 }]}>Jack Cooper</Text>
+                                    <Text style={[ThemeStyling.heading2, { textAlign: "center", marginBottom: 5 }]}>{CommonHelper.getUserName(this.state?.user)}</Text>
                                 </View>
                                 <View style={{ justifyContent: "center", flexDirection: "row" }}>
                                     <View>
