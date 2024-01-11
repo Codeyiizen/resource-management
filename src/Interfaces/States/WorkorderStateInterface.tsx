@@ -4,5 +4,10 @@ export default interface WorkorderStateInterface {
     serachText?:any;
     objStatus?:any;
     selectedFilter?:any;
-    location:any;
+    location?:any;
+    user?:any;
+    curTime?:any;
+    intervalId?:any;
+    curDate?:any;
+    isStarted?:boolean
 }

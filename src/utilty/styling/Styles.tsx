@@ -1,13 +1,12 @@
 import { Dimensions, StyleSheet } from "react-native";
 import Colors from "../Colors";
-
+import {Platform} from 'react-native';
 export const ThemeStyling = StyleSheet.create({
   scrollView: {
     flex: 1
   },
   container: {
     padding: 15,
-    justifyContent: 'center',
     alignItem: 'center',
     minHeight: '100%',
   },
@@ -420,13 +419,15 @@ export const ThemeStyling = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     height: Dimensions.get('window').height,
+    minHeight:Dimensions.get('window').height,
     position: 'absolute',
     backgroundColor: "rgba(0,0,0,0.5)",
     width: '100%',
     alignItems: 'center',
     left: 0,
     minWidth: Dimensions.get('window').width,
-    zIndex: 9999
+    zIndex: 9999,
+    top:0,
   },
   footer: {
     paddingTop: 10,
@@ -600,5 +601,9 @@ export const ThemeStyling = StyleSheet.create({
   label: {
     marginLeft: 10,
   },
+  ForBottomOfSCreen:{
+    marginTop:'auto',
+    marginBottom:(Platform.OS==='ios')?23:3
+  }
 });
 
