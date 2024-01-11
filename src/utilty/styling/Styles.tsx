@@ -604,6 +604,9 @@ export const ThemeStyling = StyleSheet.create({
   ForBottomOfSCreen:{
     marginTop:'auto',
     marginBottom:(Platform.OS==='ios')?23:3
+  },
+  notesBlock:{
+    marginBottom:1
   }
 });
 
