@@ -20,12 +20,17 @@ export default class Workorder extends Component<ScreenInterfcae, WorkorderState
             serachText: '',
             user: {},
             intervalId: 0,
-            isStarted: false
+            isStarted: false,
+            timeLine:[],
+            isAnyJobStarted:false
         }
     }
     async componentDidMount() {
         this.setState({ user: await CommonHelper.getUserData() });
         this.setState({ loader: false });
+        this.props?.navigation.addListener("focus", async () => {
+            await this.getApiData();
+        });
         const interval = setInterval(() => {
             this.setState({
                 curTime: new Date().toLocaleString(),
@@ -33,9 +38,28 @@ export default class Workorder extends Component<ScreenInterfcae, WorkorderState
             });
         }, 1000);
         this.setState({ intervalId: interval });
+        await this.getApiData();
     }
     componentWillUnmount(): void {
         clearInterval(this.state.intervalId);
+    }
+    async getApiData(){
+        const objApiData = {
+            service_id: this.props?.route?.params?.data,
+            machine_id: this.props?.route?.params?.machine?.machine_id,
+            job_site_id: this.props?.route?.params?.machine?.job_site_id,
+        }
+        CommonApiRequest.getTodaysTimerLog(objApiData).then((response) => {
+            this.setState({ loader: false });
+            console.log(response?.results?.tiimeline);
+            if (response?.status == 200) {
+                this.setState({
+                    isStarted:response?.results?.clockInStatus,
+                    isAnyJobStarted:response?.results?.isClockedIn,
+                    timeLine:response?.results?.tiimeline
+                })
+            }
+        })
     }
     async startTimer() {
         this.setState({ loader: true });
@@ -144,55 +168,21 @@ export default class Workorder extends Component<ScreenInterfcae, WorkorderState
                                         }]}>Timeline</Text>
                                     </View>
                                 </View>
-                                <View style={[ThemeStyling.twoColumnLayout, { justifyContent: "space-between" }]}>
-                                    <View style={ThemeStyling.twoColumnLayout}>
-                                        <View style={{ marginRight: 5 }}>
-                                            <MaterialCommunityIcons name="timer-outline" size={18} style={{ color: Colors.primary_color }} /></View>
+                                {this.state?.timeLine?.length > 0 && this.state?.timeLine?.map((item:any,index:number)=>{
+                                    return <View style={[ThemeStyling.twoColumnLayout, { justifyContent: "space-between" }]} key={index}>
+                                        <View style={ThemeStyling.twoColumnLayout}>
+                                            <View style={{ marginRight: 5 }}>
+                                                {CommonHelper.getClockType(item)}
+                                            </View>
+                                            <View>
+                                                <Text style={[ThemeStyling.text2, { color: Colors.dark_color }]}>{item?.type}</Text>
+                                            </View>
+                                        </View>
                                         <View>
-                                            <Text style={[ThemeStyling.text2, { color: Colors.dark_color }]}>Check In</Text>
+                                            <Text style={[ThemeStyling.text2, { color: Colors.secondry_color }]}>{item?.time}</Text>
                                         </View>
                                     </View>
-                                    <View>
-                                        <Text style={[ThemeStyling.text2, { color: Colors.secondry_color }]}>9:45 AM</Text>
-                                    </View>
-                                </View>
-                                <View style={[ThemeStyling.twoColumnLayout, { justifyContent: "space-between" }]}>
-                                    <View style={ThemeStyling.twoColumnLayout}>
-                                        <View style={{ marginRight: 5 }}>
-                                            <MaterialIcons name="timer-off" size={16} style={{ color: Colors.errorColor }} /></View>
-                                        <View>
-                                            <Text style={[ThemeStyling.text2, { color: Colors.dark_color }]}>Check Out</Text>
-                                        </View>
-                                    </View>
-                                    <View>
-                                        <Text style={[ThemeStyling.text2, { color: Colors.secondry_color }]}>12:30 PM</Text>
-                                    </View>
-                                </View>
-
-                                <View style={[ThemeStyling.twoColumnLayout, { justifyContent: "space-between" }]}>
-                                    <View style={ThemeStyling.twoColumnLayout}>
-                                        <View style={{ marginRight: 5 }}>
-                                            <MaterialCommunityIcons name="timer-outline" size={18} style={{ color: Colors.primary_color }} /></View>
-                                        <View>
-                                            <Text style={[ThemeStyling.text2, { color: Colors.dark_color }]}>Check In</Text>
-                                        </View>
-                                    </View>
-                                    <View>
-                                        <Text style={[ThemeStyling.text2, { color: Colors.secondry_color }]}>8:15 AM</Text>
-                                    </View>
-                                </View>
-                                <View style={[ThemeStyling.twoColumnLayout, { justifyContent: "space-between" }]}>
-                                    <View style={ThemeStyling.twoColumnLayout}>
-                                        <View style={{ marginRight: 5 }}>
-                                            <MaterialIcons name="timer-off" size={16} style={{ color: Colors.errorColor }} /></View>
-                                        <View>
-                                            <Text style={[ThemeStyling.text2, { color: Colors.dark_color }]}>Check Out</Text>
-                                        </View>
-                                    </View>
-                                    <View>
-                                        <Text style={[ThemeStyling.text2, { color: Colors.secondry_color }]}>10:30 AM</Text>
-                                    </View>
-                                </View>
+                                })}
                             </View>
                         </View>
                     </View>

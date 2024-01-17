@@ -9,5 +9,7 @@ export default interface WorkorderStateInterface {
     curTime?:any;
     intervalId?:any;
     curDate?:any;
-    isStarted?:boolean
+    isStarted?:boolean;
+    timeLine?:any;
+    isAnyJobStarted?:boolean
 }
