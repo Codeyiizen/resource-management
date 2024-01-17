@@ -1,5 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ConstantsVar } from "./ConstantsVar";
+import Colors from "./Colors";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export const CommonHelper = {
     registerValidation: async function (params: any) {
@@ -107,6 +109,13 @@ export const CommonHelper = {
         const day = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday",
         "Sunday"][myDateObj.getDay()]
         return day+", "+myDateObj.getDate() + " " + month + " " +myDateObj.getFullYear();
+    },
+    getClockType(data:any){
+        if(data?.type_id===1){
+            return <MaterialCommunityIcons name="timer-outline" size={18} style={{ color: Colors.primary_color }} />
+        } else {
+            return <MaterialCommunityIcons name="timer-off-outline" size={18} style={{ color: Colors.errorColor }} />
+        }
     }
 
 }
