@@ -134,22 +134,29 @@ export default class Workorder extends Component<ScreenInterfcae, WorkorderState
                                 </TouchableOpacity>
                             </View>
 
-                            <View style={[ThemeStyling.notesBlock, { marginBottom: 10 }]}>
-                                <View style={{ justifyContent: "center", flex: 1, flexDirection: "row", marginBottom: 10 }}>
+                            <View style={[ThemeStyling.notesBlock, { marginBottom: 20 }]}>
+                                <View style={{ justifyContent: "center", flex: 1, flexDirection: "row"}}>
                                     <FontAwesome name="commenting-o" size={20} style={{ color: Colors.primary_color, marginRight: 5 }} />
                                     <Text>Notes</Text>
                                 </View>
-                                <View style={ThemeStyling.formgroup2}>
+                                <View style={[ThemeStyling.formgroup2, {marginTop:10}]}>
                                     <Text style={[ThemeStyling.heading5, { color: Colors.dark_color }]}>Enter Message here</Text>
-                                    <TextInput style={[ThemeStyling.formcontrol, {borderRadius:8, justifyContent:'flex-start', alignItems:"flex-start", flex:1, top:5}]} secureTextEntry={false}
+                                    <TextInput style={[ThemeStyling.formcontrol, { borderRadius: 8, justifyContent: 'flex-start', alignItems: "flex-start", flex: 1, top: 5 }]} secureTextEntry={false}
                                         multiline={true}
                                         numberOfLines={4}
                                         placeholder="e.g. required two brush..."></TextInput>
                                 </View>
-                                <View style={{ marginBottom: 20 }}>
-                                    <TouchableOpacity style={[ThemeStyling.btnPrimary, { justifyContent: 'center' }]}>
-                                        <Text style={[ThemeStyling.btnText, { fontSize: Colors.FontSize.f16, color: Colors.white }]}>Save</Text>
-                                    </TouchableOpacity>
+                                <View style={[ThemeStyling.twoColumnLayout]}>
+                                    <View style={{ width: '48%', marginRight: 5 }}>
+                                        <TouchableOpacity style={[ThemeStyling.btnPrimary]}>
+                                            <Text style={[ThemeStyling.btnText, { fontSize: Colors.FontSize.f16, color: Colors.white }]}>Save</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <View style={{ width: '48%', marginLeft: 5 }}>
+                                        <TouchableOpacity style={[ThemeStyling.btnDanger]}>
+                                            <Text style={[ThemeStyling.btnText, { fontSize: Colors.FontSize.f16, color: Colors.white }]}>Cancel</Text>
+                                        </TouchableOpacity>
+                                    </View>
                                 </View>
                             </View>
 
